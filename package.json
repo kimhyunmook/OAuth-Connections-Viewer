@@ -1,0 +1,22 @@
+{
+  "name": "google_sdparti",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "dev": "tsc --watch & chokidar 'src/styles/**/*.css' -c 'cp -R src/styles dist'",
+    "postbuild": "cp manifest.json dist/ && cp src/popup.html dist/popup.html  && cp icon.png dist/icon.png && cp -R src/styles dist",
+    "prebuild": "rm -rf dist && mkdir dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/chrome": "^0.0.328",
+    "chokidar-cli": "^3.0.0",
+    "typescript": "^5.8.3"
+  }
+}
