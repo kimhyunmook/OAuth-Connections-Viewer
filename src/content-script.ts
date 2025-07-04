@@ -6,7 +6,7 @@ function parseConnections_google() {
     listDom: "li div.VfPpkd-ksKsZd-XxIAqe.i3FRte > a.RlFDUe.mlgsfe",
     imageDom: "img.bLJ69",
     nameDom: "div.tXqPBe > div",
-  })
+  });
   return items;
 }
 
@@ -16,7 +16,7 @@ function parseConnections_naver() {
     listDom: "tr.list",
     imageDom: "tr.list td.site img",
     nameDom: "td.site strong.service_title",
-  })
+  });
   return items;
 }
 
@@ -26,7 +26,7 @@ function parseConnections_kakao() {
     listDom: "div.kc_item_list",
     imageDom: ".kc_thumb_img img",
     nameDom: ".kc_tit_subject",
-  })
+  });
   return items;
 }
 
@@ -35,4 +35,3 @@ window.addEventListener("load", () => {
   sendMessageData("NAVER_SAVE", parseConnections_naver, 1000);
   sendMessageData("KAKAO_SAVE", parseConnections_kakao, 1000);
 });
-

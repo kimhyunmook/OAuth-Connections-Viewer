@@ -17,10 +17,10 @@ export type ConnectionType = {
 };
 
 export interface ParseConnectionType {
-  parentDom: string
-  listDom: string
-  imageDom: string
-  nameDom: string
+  parentDom: string;
+  listDom: string;
+  imageDom: string;
+  nameDom: string;
 }
 
 export interface ServiceBackgroundConfig {
