@@ -1,5 +1,14 @@
 import { OauthType, ParseConnectionType } from "../types/type";
 
+
+export function isLogin(): boolean {
+  if (window.location.href.includes('login')) {
+    console.log('로그인 필요', window.location.href)
+    return true
+  }
+  return false
+}
+
 export function parseConnection(
   { parentDom, listDom, imageDom, nameDom }: ParseConnectionType,
   cb?: () => void

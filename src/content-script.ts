@@ -1,4 +1,4 @@
-import { parseConnection, sendMessageData } from "./utils/connection";
+import { isLogin, parseConnection, sendMessageData } from "./helpers/connection-script";
 
 function parseConnections_google() {
   const items = parseConnection({
@@ -30,8 +30,13 @@ function parseConnections_kakao() {
   return items;
 }
 
+
 window.addEventListener("load", () => {
   sendMessageData("GOOGLE_SAVE", parseConnections_google, 1000);
   sendMessageData("NAVER_SAVE", parseConnections_naver, 1000);
   sendMessageData("KAKAO_SAVE", parseConnections_kakao, 1000);
 });
+
+if (isLogin()) {
+  chrome.runtime.sendMessage({ type: "LOGIN_REQUIRED" });
+}

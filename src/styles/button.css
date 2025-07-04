@@ -1,0 +1,52 @@
+button.primary:active {
+  box-shadow: 0 0 var(--button-bg-hover);
+  background: var(--button-bg-hover);
+}
+
+button.primary {
+  background: var(--button-bg);
+  background: -moz-linear-gradient(
+    top,
+    var(--button-bg) 0%,
+    var(--button-bg-hover) 100%
+  );
+  background: -webkit-gradient(
+    left top,
+    left bottom,
+    color-stop(0%, var(--button-bg)),
+    color-stop(100%, var(--button-bg-hover))
+  );
+  background: -webkit-linear-gradient(
+    top,
+    var(--button-bg) 0%,
+    var(--button-bg-hover) 100%
+  );
+  background: -o-linear-gradient(
+    top,
+    var(--button-bg) 0%,
+    var(--button-bg-hover) 100%
+  );
+  background: -ms-linear-gradient(
+    top,
+    var(--button-bg) 0%,
+    var(--button-bg-hover) 100%
+  );
+  background: linear-gradient(
+    to bottom,
+    var(--button-bg) 0%,
+    var(--button-bg-hover) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
+  padding: 8px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--button-text);
+  display: inline-block;
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-bottom: 4px solid var(--border-color);
+  border-radius: 4px;
+  text-shadow: 0 1px 0 var(--shadow-color);
+  transition: all 0.3s ease;
+}

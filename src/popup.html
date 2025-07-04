@@ -5,13 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OAuth Connections Viewer</title>
     <link rel="stylesheet" href="./styles/global.css" />
+    <link rel="stylesheet" href="./styles/button.css" />
+    <link rel="stylesheet" href="./styles/loading.css" />
   </head>
   <body>
+    <button class="theme-toggle" id="theme-toggle" title="테마 변경">🌙</button>
     <main id="root">
-      <h1>
-        OAuth Connections
-        <span class="subtitle">Checkable Platform</span>
-      </h1>
+      <h1>OAuth Connections</h1>
+      <div class="notification">
+        <h2>OAuth Connections Viewer 공지</h2>
+        <p>
+          이 확장 프로그램은 로그인된 OAuth 사이트 목록을 수집해 사용자
+          본인에게만 표시합니다.
+          <strong>외부 서버로는 절대 전송되지 않으며</strong>, 브라우저
+          저장소에만 저장됩니다.
+        </p>
+      </div>
+      <p class="subtitle">Checkable Platform</p>
       <div class="btn-area">
         <a id="google-load" href="#">
           <img src="./assets/google-icon.svg" alt="google-oauth" />
@@ -26,6 +36,9 @@
       <ul id="OAlists">
         <li class="list">아직 데이터가 없습니다.</li>
       </ul>
+      <button id="clear-storage-btn" class="primary" style="margin-top: 16px">
+        스토리지 데이터 삭제
+      </button>
     </main>
     <script type="module" src="popup.js"></script>
   </body>

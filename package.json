@@ -6,11 +6,17 @@
   "scripts": {
     "prebuild": "rimraf dist && mkdirp dist",
     "build": "npm run prebuild && webpack --mode=production && npm run postbuild",
-    "postbuild": "cpy manifest.json icon.png dist/ && cpy src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
-    "dev:init": "rimraf dist && mkdirp dist && cpy manifest.json icon.png src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
+    "postbuild": "cpy manifest.json dist/ && cpy src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
+    "dev:init": "rimraf dist && mkdirp dist && cpy manifest.json src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
     "dev": "npm run dev:init && concurrently \"webpack --watch --mode=development\" \"chokidar 'src/styles/**/*.css' -c 'cpy src/styles/**/* dist/styles/'\" \"chokidar 'src/*.html' -c 'cpy src/*.html dist/'\" \"chokidar 'cpy src/assets/**/* dist/assets/'\""
   },
-  "keywords": [],
+  "keywords": [
+    "oauth",
+    "connections",
+    "viewer",
+    "chrome",
+    "extension"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",

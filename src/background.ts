@@ -1,6 +1,6 @@
 import { MsgType } from "./types/type";
 import { SERVICES_BACKGROUND } from "./config/background-config";
-import { handleSave, handleGet } from "./utils/background";
+import { handleSave, handleGet } from "./helpers/background";
 
 chrome.runtime.onMessage.addListener((msg: MsgType, sender, sendResponse) => {
   for (const key in SERVICES_BACKGROUND) {
