@@ -7,9 +7,19 @@
   </head>
   <body class="">
     <div id="root">
-      <button id="loadBtn">my OAuth Connection</button>
-      <ul id="OAlist" class="space-y-2">
-        <li class="text-gray-500">아직 데이터가 없습니다.</li>
+      <div class="btn-area">
+        <a id="google-load" href="#">
+          <img src="./assets/google-icon.svg" alt="google-oauth" />
+        </a>
+        <a id="naver-load" href="#">
+          <img src="./assets/naver-icon.svg" alt="naver-oauth" />
+        </a>
+        <a id="kakao-load" href="#">
+          <img src="./assets/kakao-icon.svg" alt="kakao-oauth" />
+        </a>
+      </div>
+      <ul id="OAlists">
+        <li class="list">아직 데이터가 없습니다.</li>
       </ul>
     </div>
     <script type="module" src="popup.js"></script>

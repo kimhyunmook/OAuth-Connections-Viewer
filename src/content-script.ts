@@ -1,13 +1,6 @@
-// content-script.ts
+import { Connection } from "./types/type";
 
-// Connection 타입은 한 번만 선언
-export type Connection = {
-  image?: string;
-  name?: string;
-};
-
-function parseConnections(): Connection[] {
-  // ul.u7hyyf 안의 모든 li 요소의 텍스트를 추출
+export function parseConnections_google(): Connection[] {
   const ul = document.querySelector("div.OZ7tnf div.edUmvf.iUwXVd ul.u7hyyf");
   if (!ul) {
     console.log("ul.u7hyyf not found");
@@ -26,7 +19,7 @@ function parseConnections(): Connection[] {
 
 window.addEventListener("load", () => {
   setTimeout(() => {
-    const data = parseConnections();
+    const data = parseConnections_google();
     chrome.runtime.sendMessage({ type: "SAVE_CONNECTIONS", payload: data });
   }, 1000);
 });

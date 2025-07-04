@@ -1,27 +1,25 @@
-const loadBtn = document.getElementById("loadBtn") as HTMLButtonElement;
-const listEl = document.getElementById("OAlist") as HTMLUListElement;
+import { Connection } from "./types/type";
+const loadBtn = document.getElementById("google-load") as HTMLButtonElement;
+const listUL = document.getElementById("OAlists") as HTMLUListElement;
 
-type Connection = {
-  image?: string;
-  name?: string;
-};
+loadBtn.addEventListener("click", (e: MouseEvent) => {
+  e.preventDefault();
 
-loadBtn.addEventListener("click", () => {
   chrome.runtime.sendMessage(
     { type: "GET_CONNECTIONS" },
     (res: { connections: Connection[] }) => {
       const conns = res.connections;
-      listEl.innerHTML = "";
+      listUL.innerHTML = "";
       if (conns.length === 0) {
-        listEl.innerHTML =
-          "<li class='text-gray-500'>데이터가 없습니다. My Account 페이지를 먼저 방문해주세요.</li>";
+        listUL.innerHTML =
+          "<li class='list'>데이터가 없습니다. <a href='https://myaccount.google.com/connections'>My Account 페이지</a>를 먼저 방문해주세요.</li>";
         return;
       }
       conns.forEach((c) => {
         const li = document.createElement("li");
-        li.className = "flex items-center gap-3 bg-white rounded shadow p-2";
+        li.className = "list";
         li.innerHTML = `<img src="${c.image}" class="w-8 h-8 rounded-full bg-gray-200" alt=""><p class="font-medium">${c.name}</p>`;
-        listEl.appendChild(li);
+        listUL.appendChild(li);
       });
     }
   );

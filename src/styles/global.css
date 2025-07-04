@@ -8,29 +8,35 @@ button {
 
 #root {
   padding: 10px 20px;
+  padding-right: 0;
+  width: 350px;
+  height: 300px;
   border-radius: 20px;
 }
 
-#OAlist {
+#OAlists {
+  overflow-y: scroll;
   list-style: none;
   margin: 10px 0;
+  width: 100%;
+  height: 100%;
 }
 
-#OAlist li {
+#OAlists .list {
   display: flex;
   align-items: center;
   height: 45px;
 }
 
-#OAlist li img {
+#OAlists .list img {
   margin-right: 20px;
   max-width: 25px;
   max-height: 25px;
 }
-#OAlist li p {
+#OAlists .list p {
   font-size: 1rem;
 }
-#loadBtn {
+.btn-area button {
   background: rgba(102, 152, 203, 1);
   background: -moz-linear-gradient(
     top,
@@ -76,8 +82,46 @@ button {
   border-radius: 4px;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15);
 }
+.btn-area {
+  display: flex;
+}
+.btn-area a {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.21);
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.btn-area a img {
+  height: 30px;
+  width: 30px;
+}
+.btn-area a:last-child {
+  margin-right: 0;
+}
 
-#loadBtn:active {
+/* btn setting */
+#google-load {
+  background-color: #fff;
+}
+#naver-load {
+  background-color: #03c75a;
+}
+#kakao-load {
+  background-color: #fee500;
+}
+
+#naver-load img,
+#kakao-load img {
+  width: 20px;
+  height: 20px;
+}
+
+button:active {
   box-shadow: 0 0 #74a3b0;
   background: #74a3b0;
 }

@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "rimraf dist && mkdirp dist",
     "build": "tsc",
-    "dev": "tsc --watch & chokidar 'src/styles/**/*.css' -c 'cp -R src/styles dist'",
-    "postbuild": "cp manifest.json dist/ && cp src/popup.html dist/popup.html  && cp icon.png dist/icon.png && cp -R src/styles dist",
-    "prebuild": "rm -rf dist && mkdir dist"
+    "postbuild": "cpy manifest.json icon.png dist/ && cpy src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
+    "dev:init": "rimraf dist && mkdirp dist && cpy manifest.json icon.png src/*.html dist/ && cpy src/styles/**/* dist/styles/ && cpy src/assets/**/* dist/assets/",
+    "dev": "npm run dev:init && concurrently \"tsc --watch\" \"chokidar 'src/styles/**/*.css' -c 'cpy src/styles/**/* dist/styles/'\" \"chokidar 'src/*.html' -c 'cpy src/*.html dist/'\" \"chokidar 'cpy src/assets/**/* dist/assets/'\""
   },
   "keywords": [],
   "author": "",
@@ -16,7 +16,12 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/chrome": "^0.0.328",
+    "chokidar": "^4.0.3",
     "chokidar-cli": "^3.0.0",
+    "concurrently": "^9.2.0",
+    "cpy-cli": "^5.0.0",
+    "mkdirp": "^3.0.1",
+    "rimraf": "^6.0.1",
     "typescript": "^5.8.3"
   }
 }
