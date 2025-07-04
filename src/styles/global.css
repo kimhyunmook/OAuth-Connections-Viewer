@@ -5,7 +5,15 @@
 button {
   border: none;
 }
-
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+h1 span {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.6em;
+}
 #root {
   padding: 10px 20px;
   padding-right: 0;
@@ -115,12 +123,14 @@ button {
   background-color: #fee500;
 }
 
-#naver-load img,
-#kakao-load img {
+#naver-load img {
   width: 20px;
   height: 20px;
 }
-
+#kakao-load img {
+  width: 25px;
+  height: 25px;
+}
 button:active {
   box-shadow: 0 0 #74a3b0;
   background: #74a3b0;

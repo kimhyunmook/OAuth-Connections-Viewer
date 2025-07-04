@@ -1,4 +1,8 @@
-export type OauthType = "GOOGLE_GET" | "GOOGLE_SAVE";
+export type OauthType =
+  | "GOOGLE_GET"
+  | "GOOGLE_SAVE"
+  | "NAVER_GET"
+  | "NAVER_SAVE";
 
 export interface MsgType {
   type: OauthType;

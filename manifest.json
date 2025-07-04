@@ -3,7 +3,10 @@
   "name": "OAuth Connections Viewer",
   "version": "1.0.0",
   "permissions": ["storage", "scripting", "activeTab"],
-  "host_permissions": ["https://myaccount.google.com/connections*"],
+  "host_permissions": [
+    "https://myaccount.google.com/connections*",
+    "https://nid.naver.com/internalToken/view/tokenList/pc/ko*"
+  ],
   "background": {
     "service_worker": "background.js",
     "type": "module"
@@ -14,7 +17,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://myaccount.google.com/connections*"],
+      "matches": [
+        "https://myaccount.google.com/connections*",
+        "https://nid.naver.com/internalToken/view/tokenList/pc/ko*"
+      ],
       "js": ["content-script.js"]
     }
   ]

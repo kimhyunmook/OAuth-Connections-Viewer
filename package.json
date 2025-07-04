@@ -1,5 +1,5 @@
 {
-  "name": "google_sdparti",
+  "name": "OAuth Connections Viewer",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -22,6 +22,8 @@
     "cpy-cli": "^5.0.0",
     "mkdirp": "^3.0.1",
     "rimraf": "^6.0.1",
-    "typescript": "^5.8.3"
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack-cli": "^6.0.1"
   }
 }
