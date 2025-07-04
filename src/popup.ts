@@ -2,6 +2,7 @@ import { ConnectionType, OauthType } from "./types/type";
 
 const googleBtn = document.getElementById("google-load") as HTMLButtonElement;
 const naverBtn = document.getElementById("naver-load") as HTMLButtonElement;
+const kakaoBtn = document.getElementById("kakao-load") as HTMLButtonElement;
 const listUL = document.getElementById("OAlists") as HTMLUListElement;
 
 function renderList(conns: ConnectionType[], emptyMsg: string) {
@@ -40,6 +41,16 @@ naverBtn.addEventListener("click", (e: MouseEvent) => {
         res.connections,
         "데이터가 없습니다. <a href='https://nid.naver.com/internalToken/view/tokenList/pc/ko' target='_blank'>네이버 토큰 관리 페이지</a>를 먼저 방문해주세요."
       );
+    }
+  );
+});
+
+kakaoBtn.addEventListener("click", (e: MouseEvent) => {
+  e.preventDefault();
+  chrome.runtime.sendMessage(
+    { type: "KAKAO_GET" } as { type: OauthType },
+    (res: { connections: ConnectionType[] }): void => {
+      renderList(res.connections, "데이터가 없습니다. <a href='https://apps.kakao.com/connected/app/list?service_type=open' target='_blank'>카카오 연결 관리 페이지</a>를 먼저 방문해주세요.");
     }
   );
 });
