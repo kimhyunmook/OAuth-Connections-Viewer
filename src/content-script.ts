@@ -1,6 +1,6 @@
-import { Connection } from "./types/type";
+import { ConnectionType, OauthType } from "./types/type";
 
-export function parseConnections_google(): Connection[] {
+function parseConnections_google(): ConnectionType[] {
   const ul = document.querySelector("div.OZ7tnf div.edUmvf.iUwXVd ul.u7hyyf");
   if (!ul) {
     console.log("ul.u7hyyf not found");
@@ -20,6 +20,9 @@ export function parseConnections_google(): Connection[] {
 window.addEventListener("load", () => {
   setTimeout(() => {
     const data = parseConnections_google();
-    chrome.runtime.sendMessage({ type: "SAVE_CONNECTIONS", payload: data });
+    chrome.runtime.sendMessage<{ type: OauthType; payload: any[] }>({
+      type: "GOOGLE_GET",
+      payload: data,
+    });
   }, 1000);
 });

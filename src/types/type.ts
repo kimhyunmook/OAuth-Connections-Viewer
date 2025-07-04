@@ -1,9 +1,11 @@
+export type OauthType = "GOOGLE_GET" | "GOOGLE_SAVE";
+
 export interface MsgType {
-  type: "SAVE_CONNECTIONS" | "GET_CONNECTIONS";
+  type: OauthType;
   payload: any[];
 }
 
-export type Connection = {
+export type ConnectionType = {
   image?: string;
   name?: string;
 };
