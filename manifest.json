@@ -6,7 +6,7 @@
   "host_permissions": [
     "https://myaccount.google.com/connections*",
     "https://nid.naver.com/internalToken/view/tokenList/pc/ko*",
-    "https://apps.kakao.com/connected/app/list?service_type=open*"
+    "https://apps.kakao.com/connected/app/list*"
   ],
   "background": {
     "service_worker": "background.js",
@@ -21,7 +21,7 @@
       "matches": [
         "https://myaccount.google.com/connections*",
         "https://nid.naver.com/internalToken/view/tokenList/pc/ko*",
-        "https://apps.kakao.com/connected/app/list?service_type=open*"
+        "https://apps.kakao.com/connected/app/list*"
       ],
       "js": ["content-script.js"]
     }

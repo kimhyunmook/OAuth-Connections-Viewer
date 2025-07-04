@@ -2,7 +2,7 @@ import { OauthType, ParseConnectionType } from "../types/type";
 
 export function parseConnection({ parentDom, listDom, imageDom, nameDom }: ParseConnectionType, cb?: () => void) {
     const parentEl = document.querySelector(parentDom);
-    if (!parentEl) {
+    if (!parentEl || parentEl === null) {
         console.log("parent element not found !!");
         return [];
     }

@@ -1,56 +1,11 @@
-import { ConnectionType, OauthType } from "./types/type";
+import { googleBtn, naverBtn, kakaoBtn } from "./config/script-config";
+import { handleServiceClick } from "./utils/popup";
 
-const googleBtn = document.getElementById("google-load") as HTMLButtonElement;
-const naverBtn = document.getElementById("naver-load") as HTMLButtonElement;
-const kakaoBtn = document.getElementById("kakao-load") as HTMLButtonElement;
-const listUL = document.getElementById("OAlists") as HTMLUListElement;
+// 1분마다 localstorage 데이터 전체 삭제
+setInterval(() => {
+  chrome.storage.local.clear();
+}, 60 * 1000);
 
-function renderList(conns: ConnectionType[], emptyMsg: string) {
-  listUL.innerHTML = "";
-  if (conns.length === 0) {
-    listUL.innerHTML = `<li class='list'>${emptyMsg}</li>`;
-    return;
-  }
-  conns.forEach((c) => {
-    const li = document.createElement("li");
-    li.className = "list";
-    li.innerHTML = `<img src="${c.image}" alt="image"><p class="font-medium">${c.name}</p>`;
-    listUL.appendChild(li);
-  });
-}
-
-googleBtn.addEventListener("click", (e: MouseEvent) => {
-  e.preventDefault();
-  chrome.runtime.sendMessage(
-    { type: "GOOGLE_GET" } as { type: OauthType },
-    (res: { connections: ConnectionType[] }): void => {
-      renderList(
-        res.connections,
-        "데이터가 없습니다. <a href='https://myaccount.google.com/connections' target='_blank'>My Account 페이지</a>를 먼저 방문해주세요."
-      );
-    }
-  );
-});
-
-naverBtn.addEventListener("click", (e: MouseEvent) => {
-  e.preventDefault();
-  chrome.runtime.sendMessage(
-    { type: "NAVER_GET" } as { type: OauthType },
-    (res: { connections: ConnectionType[] }): void => {
-      renderList(
-        res.connections,
-        "데이터가 없습니다. <a href='https://nid.naver.com/internalToken/view/tokenList/pc/ko' target='_blank'>네이버 토큰 관리 페이지</a>를 먼저 방문해주세요."
-      );
-    }
-  );
-});
-
-kakaoBtn.addEventListener("click", (e: MouseEvent) => {
-  e.preventDefault();
-  chrome.runtime.sendMessage(
-    { type: "KAKAO_GET" } as { type: OauthType },
-    (res: { connections: ConnectionType[] }): void => {
-      renderList(res.connections, "데이터가 없습니다. <a href='https://apps.kakao.com/connected/app/list?service_type=open' target='_blank'>카카오 연결 관리 페이지</a>를 먼저 방문해주세요.");
-    }
-  );
-});
+googleBtn.addEventListener("click", handleServiceClick("google"));
+naverBtn.addEventListener("click", handleServiceClick("naver"));
+kakaoBtn.addEventListener("click", handleServiceClick("kakao"));

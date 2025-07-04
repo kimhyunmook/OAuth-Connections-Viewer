@@ -22,3 +22,11 @@ export interface ParseConnectionType {
   imageDom: string
   nameDom: string
 }
+
+export interface ServiceBackgroundConfig {
+  key: string;
+  saveType: string;
+  getType: string;
+  readyType: string;
+  latest: any[];
+}

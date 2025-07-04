@@ -1,8 +1,8 @@
-import { parseConnection } from "./utils/connection";
+import { parseConnection, sendMessageData } from "./utils/connection";
 
 function parseConnections_google() {
   const items = parseConnection({
-    parentDom: "div.OZ7tnf div.edUmvf.iUwXVd ul.u7hyyf",
+    parentDom: "div.OZ7tnf ul.u7hyyf",
     listDom: "li div.VfPpkd-ksKsZd-XxIAqe.i3FRte > a.RlFDUe.mlgsfe",
     imageDom: "img.bLJ69",
     nameDom: "div.tXqPBe > div",
@@ -22,8 +22,8 @@ function parseConnections_naver() {
 
 function parseConnections_kakao() {
   const items = parseConnection({
-    parentDom: "#serviceTabMenu1",
-    listDom: ".kc_item_list fst",
+    parentDom: "div#serviceTabMenu1",
+    listDom: "div.kc_item_list",
     imageDom: ".kc_thumb_img img",
     nameDom: ".kc_tit_subject",
   })
@@ -31,31 +31,8 @@ function parseConnections_kakao() {
 }
 
 window.addEventListener("load", () => {
-  setTimeout(() => {
-    const data = parseConnections_google();
-    chrome.runtime.sendMessage({
-      type: "GOOGLE_GET",
-      payload: data,
-    });
-  }, 1000);
+  sendMessageData("GOOGLE_SAVE", parseConnections_google, 1000);
+  sendMessageData("NAVER_SAVE", parseConnections_naver, 1000);
+  sendMessageData("KAKAO_SAVE", parseConnections_kakao, 1000);
 });
 
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    const data = parseConnections_naver();
-    chrome.runtime.sendMessage({
-      type: "NAVER_SAVE",
-      payload: data,
-    });
-  }, 1000);
-});
-
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    const data = parseConnections_kakao();
-    chrome.runtime.sendMessage({
-      type: "KAKAO_SAVE",
-      payload: data,
-    });
-  }, 1000);
-});
