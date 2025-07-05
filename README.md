@@ -64,9 +64,21 @@ myOauth/
 
 ## 스크린샷
 
-> (여기에 확장 프로그램 팝업 화면, 다크모드, 연결 리스트 예시 등 이미지를 첨부하면 좋습니다)
+### 기본
 
----
+<img width="430" height="439" alt="Image" src="https://github.com/user-attachments/assets/d9c74e1c-bec3-415e-bf64-cce66de97a5f" />
+
+### OAuth 목록 불러오기
+
+<img width="442" height="617" alt="Image" src="https://github.com/user-attachments/assets/4ea510b6-f4e3-43fb-ba3d-a5afd1c83edb" />
+
+### 로그인이 필요 alert
+
+<img width="460" height="433" alt="Image" src="https://github.com/user-attachments/assets/4fb23a0d-4d95-482e-bb3a-2b76acfeefc9" />
+
+### 스토리지(저장소) 데이터 삭제
+
+<img width="462" height="430" alt="Image" src="https://github.com/user-attachments/assets/7ab982e1-1f98-4288-9387-7e5260ba1642" />
 
 ## 라이선스
 
