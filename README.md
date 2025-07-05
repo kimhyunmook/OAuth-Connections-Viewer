@@ -14,7 +14,7 @@ OAuth Connections Viewer는 Google, Naver, Kakao 등 다양한 플랫폼의 OAut
 
 ## 설치 방법
 
-1. 이 저장소를 클론하거나 ZIP 파일로 다운로드합니다.
+1. 이 repository를 클론하거나 ZIP 파일로 다운로드합니다.
 2. 크롬 브라우저에서 `chrome://extensions`로 이동합니다.
 3. 우측 상단의 **개발자 모드**를 활성화합니다.
 4. "압축해제된 확장 프로그램을 로드" 버튼을 클릭하고, 프로젝트 폴더를 선택합니다.
@@ -29,6 +29,12 @@ OAuth Connections Viewer는 Google, Naver, Kakao 등 다양한 플랫폼의 OAut
 3. "스토리지 데이터 삭제" 버튼을 클릭하면 저장된 연결 정보가 모두 삭제됩니다.
 4. 다크모드/라이트모드는 우측 상단의 🌙/☀️ 버튼으로 전환할 수 있습니다.
 5. 연결 정보가 없거나, 로그인이 필요한 경우 안내 메시지 또는 알림이 표시됩니다.
+
+---
+
+## 개인정보처리방침 안내
+
+- **<a href="https://kimhyunmook.github.io/oauth-policy/">개인정보 처리 방침 보러가기</a>**
 
 ---
 

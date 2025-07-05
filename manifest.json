@@ -10,7 +10,6 @@
     "128": "assets/icons/icon-128.png"
   },
   "permissions": ["storage", "scripting", "activeTab"],
-  "privacy_policy": "https://kimhyunmook.github.io/oauth-policy",
   "host_permissions": [
     "https://myaccount.google.com/connections*",
     "https://nid.naver.com/internalToken/view/tokenList/pc/ko*",
