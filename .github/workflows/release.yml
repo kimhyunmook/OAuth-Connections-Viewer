@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Zip dist folder
-        run: cd dist && zip -r ../myOauth-dist.zip . && cd ..
+        run: cd dist && zip -r ../OAuth-Connections-Viewer.zip . && cd ..
 
       - name: Create Release
         uses: softprops/action-gh-release@v2

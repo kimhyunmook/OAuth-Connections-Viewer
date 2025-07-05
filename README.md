@@ -2,6 +2,10 @@
 
 OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth 연결 내역(이름, 이미지)을 한 눈에 확일할 수 있는 크롬 확장 프로그램입니다.
 
+<div stlye="display:flex;align-items:center;"> 
+<img src="https://img.shields.io/badge/download-blue">
+</div>
+
 ## 주요 기능
 
 - **Google, Naver, Kakao** 계정의 연결된 외부 서비스 목록을 한 번에 확인
