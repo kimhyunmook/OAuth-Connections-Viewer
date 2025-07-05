@@ -3,15 +3,14 @@
 OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth 연결 내역(이름, 이미지)을 한 눈에 확일할 수 있는 크롬 확장 프로그램입니다.
 
 <div style="display:flex;align-items:center;justify-content:center"> 
-<a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases">
-<img src="https://img.shields.io/badge/download-blue">
-</a>
+    <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases">
+        <img src="https://img.shields.io/badge/download-blue">
+    </a>
 </div>
 
 ## 주요 기능
 
 - **Google, Naver, Kakao** 계정의 연결된 외부 서비스 목록을 한 번에 확인
-- 각 플랫폼별 연결 관리 페이지로 바로가기
 - 다크모드 지원 및 테마 토글
 - 스토리지 데이터 삭제 버튼 제공
 - 로딩 UI 및 로그인 감지 안내
@@ -20,11 +19,11 @@ OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth �
 
 ## 설치 방법
 
-1. 이 repository를 클론하거나 ZIP 파일로 다운로드합니다.
-2. 크롬 브라우저에서 `chrome://extensions`로 이동합니다.
-3. 우측 상단의 **개발자 모드**를 활성화합니다.
-4. "압축해제된 확장 프로그램을 로드" 버튼을 클릭하고, 프로젝트 폴더를 선택합니다.
-5. 확장 프로그램이 추가되면, 브라우저 우측 상단에서 아이콘을 클릭해 실행할 수 있습니다.
+1.  <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases"><img src="https://img.shields.io/badge/download-blue"></a> ZIP 파일을 다운로드합니다.
+2.  크롬 브라우저에서 <a href="https://chrome://extensions">`chrome://extensions`</a>로 이동합니다.
+3.  우측 상단의 **개발자 모드**를 활성화합니다.
+4.  "압축해제된 확장 프로그램을 로드" 버튼을 클릭하고, 프로젝트 폴더를 선택합니다.
+5.  확장 프로그램이 추가되면, 브라우저 우측 상단에서 아이콘을 클릭해 실행할 수 있습니다.
 
 ---
 
