@@ -22,7 +22,7 @@ function renderList(conns: ConnectionType[], emptyMsg: string) {
 // LOGIN_REQUIRED 메시지 수신 시 alert 표시
 chrome.runtime.onMessage.addListener((msg, sender) => {
   if (msg.type === "LOGIN_REQUIRED") {
-    alert("로그인이 필요한 페이지로 이동했습니다! 로그인 후 다시 시도해주세요.");
+    alert("로그인이 필요합니다! 로그인 후 다시 시도해주세요.");
   }
 });
 
@@ -30,9 +30,8 @@ export function handleServiceClick(service: keyof typeof SERVICE_CONFIG) {
   const cfg = SERVICE_CONFIG[service];
   return (e: MouseEvent) => {
     e.preventDefault();
-    console.log('스크립트 실행 페이지 URL:', cfg.url);
     listUL.innerHTML = '';
-    showLoading("#OAlists");
+    showLoading("#OAlists", cfg.loadingMsg);
     chrome.storage.local.get(cfg.storageKey, (store) => {
       const cached = store[cfg.storageKey];
       if (cached && cached.length > 0) {

@@ -50,3 +50,7 @@ button.primary {
   text-shadow: 0 1px 0 var(--shadow-color);
   transition: all 0.3s ease;
 }
+
+#clear-storage-btn {
+  margin-bottom: 20px;
+}

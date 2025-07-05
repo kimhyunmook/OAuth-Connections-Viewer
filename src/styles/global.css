@@ -84,7 +84,7 @@ h1 {
   padding: 10px 15px;
   padding-right: 0;
   width: 400px;
-  height: 300px;
+  height: 500px;
   border-radius: 20px;
   background-color: var(--bg-primary);
 }
@@ -97,6 +97,7 @@ h1 {
   margin: 10px 0;
   width: 100%;
   height: 100%;
+  transition: all 0.3s ease;
 }
 
 #OAlists .list {
@@ -203,20 +204,34 @@ h1 {
   background: var(--border-color);
 }
 
-/* Scrollbar styling for dark mode */
-[data-theme="dark"] #OAlists::-webkit-scrollbar {
+/* ===== 스크롤바 디자인 ===== */
+#OAlists::-webkit-scrollbar {
   width: 8px;
+  background: transparent;
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-track {
-  background: var(--bg-secondary);
+#OAlists::-webkit-scrollbar-thumb {
+  background: #b0c4de;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+#OAlists::-webkit-scrollbar-thumb:hover {
+  background: #6698cb;
+}
+
+#OAlists::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 [data-theme="dark"] #OAlists::-webkit-scrollbar-thumb {
-  background: var(--border-color);
-  border-radius: 4px;
+  background: #3a4a5a;
 }
 
 [data-theme="dark"] #OAlists::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: #6698cb;
+}
+
+[data-theme="dark"] #OAlists::-webkit-scrollbar-track {
+  background: transparent;
 }
