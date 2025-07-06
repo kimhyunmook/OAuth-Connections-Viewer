@@ -1,6 +1,19 @@
 # OAuth Connections Viewer
 
-OAuth Connections Viewer is a Chrome extension that allows you to view OAuth connection history (names, images) from various platforms such as Google, Naver, and Kakao at a glance.
+## About This Extension
+
+OAuth Connections Viewer is a Chrome extension that allows you to view OAuth connection history (names, images) from various platforms such as Google, Naver, and Kakao at a glance. You no longer need to individually search through each OAuth platform - everything is visible at once. The extension does not collect personal information or IDs and stores data in your personal storage for safe use.
+
+#### **Note: Not yet deployed to Google Web Store**
+
+Please install manually and use in developer environment.
+
+## Planned Updates
+
+- Search functionality ✅ (Completed)
+- OAuth list refresh
+  - Currently requires deleting storage and reloading
+- Check which OAuth is registered on the current page
 
 <div style="display:flex;align-items:center;justify-content:center"> 
     <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases">
