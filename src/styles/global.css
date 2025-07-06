@@ -212,28 +212,91 @@ h1 {
   background: transparent;
 }
 
-#OAlists::-webkit-scrollbar-thumb {
-  background: #b0c4de;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-
-#OAlists::-webkit-scrollbar-thumb:hover {
-  background: #6698cb;
-}
-
 #OAlists::-webkit-scrollbar-track {
   background: transparent;
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-thumb {
-  background: #3a4a5a;
+#OAlists::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-thumb:hover {
-  background: #6698cb;
+#OAlists::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-track {
-  background: transparent;
+/* ===== 검색 기능 스타일 ===== */
+.search-container {
+  display: flex;
+  align-items: center;
+  margin: 16px 0;
+  gap: 8px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.search-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.search-btn {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+
+.search-btn:hover {
+  background: var(--border-color);
+}
+
+/* 검색 결과 하이라이트 */
+.search-highlight {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+/* 검색 결과 없음 메시지 */
+.no-results {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+  padding: 20px;
+}
+
+/* 플랫폼 헤더 스타일 */
+.platform-header {
+  font-weight: bold;
+  color: var(--accent-color) !important;
+  background: var(--bg-secondary);
+  border-bottom: 2px solid var(--accent-color) !important;
+  padding: 12px 0 !important;
+  height: auto !important;
+  justify-content: center;
+}
+
+.platform-header p {
+  margin: 0;
+  font-size: 1.1rem;
 }

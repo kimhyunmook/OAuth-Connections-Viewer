@@ -8,7 +8,7 @@ export type OauthType =
 
 export interface MsgType {
   type: OauthType;
-  payload: any[];
+  payload: ConnectionType[];
 }
 
 export type ConnectionType = {
@@ -28,5 +28,34 @@ export interface ServiceBackgroundConfig {
   saveType: string;
   getType: string;
   readyType: string;
-  latest: any[];
+  latest: ConnectionType[];
+}
+
+export interface ServiceConfigItem {
+  btn: HTMLButtonElement;
+  storageKey: string;
+  saveType: OauthType;
+  getType: OauthType;
+  readyType: string;
+  url: string;
+  emptyMsg: string;
+  loadingMsg: string;
+}
+
+export interface ServiceConfig {
+  google: ServiceConfigItem;
+  naver: ServiceConfigItem;
+  kakao: ServiceConfigItem;
+}
+
+// 검색 관련 타입들
+export interface SearchResult {
+  connections: ConnectionType[];
+  platform: string;
+}
+
+export interface AllConnections {
+  google: ConnectionType[];
+  naver: ConnectionType[];
+  kakao: ConnectionType[];
 }
