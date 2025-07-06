@@ -1,42 +1,22 @@
-import { isLogin, parseConnection, sendMessageData } from "./helpers/connection-script";
+import { isLoginPage, sendMessageData } from "./services/connection-parser";
+import { parseGoogleConnections, parseNaverConnections, parseKakaoConnections } from "./services/platform-parsers";
 
-function parseConnections_google() {
-  const items = parseConnection({
-    parentDom: "div.OZ7tnf ul.u7hyyf",
-    listDom: "li div.VfPpkd-ksKsZd-XxIAqe.i3FRte > a.RlFDUe.mlgsfe",
-    imageDom: "img.bLJ69",
-    nameDom: "div.tXqPBe > div",
-  });
-  return items;
-}
-
-function parseConnections_naver() {
-  const items = parseConnection({
-    parentDom: "#oauthTokenList",
-    listDom: "tr.list",
-    imageDom: "tr.list td.site img",
-    nameDom: "td.site strong.service_title",
-  });
-  return items;
-}
-
-function parseConnections_kakao() {
-  const items = parseConnection({
-    parentDom: "div#serviceTabMenu1",
-    listDom: "div.kc_item_list",
-    imageDom: ".kc_thumb_img img",
-    nameDom: ".kc_tit_subject",
-  });
-  return items;
-}
-
-
+// 페이지 로드 후 실행
 window.addEventListener("load", () => {
-  sendMessageData("GOOGLE_SAVE", parseConnections_google, 1000);
-  sendMessageData("NAVER_SAVE", parseConnections_naver, 1000);
-  sendMessageData("KAKAO_SAVE", parseConnections_kakao, 1000);
+  // 각 플랫폼별로 조건부 실행
+  if (window.location.href.includes('myaccount.google.com')) {
+    sendMessageData("GOOGLE_SAVE", parseGoogleConnections, 1000);
+  }
+
+  if (window.location.href.includes('nid.naver.com')) {
+    sendMessageData("NAVER_SAVE", parseNaverConnections, 1000);
+  }
+
+  if (window.location.href.includes('apps.kakao.com')) {
+    sendMessageData("KAKAO_SAVE", parseKakaoConnections, 1000);
+  }
 });
 
-if (isLogin()) {
+if (isLoginPage()) {
   chrome.runtime.sendMessage({ type: "LOGIN_REQUIRED" });
 }

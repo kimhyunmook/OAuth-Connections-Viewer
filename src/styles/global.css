@@ -1,3 +1,5 @@
+/* ===== Global Styles ===== */
+
 :root {
   /* Light mode colors */
   --bg-primary: #ffffff;
@@ -9,6 +11,7 @@
   --button-bg-hover: #74a3b0;
   --button-text: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.15);
+  --accent-color: #4a90e2;
 }
 
 [data-theme="dark"] {
@@ -22,6 +25,7 @@
   --button-bg-hover: #357abd;
   --button-text: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --accent-color: #5a9ee2;
 }
 
 /* System dark mode detection */
@@ -36,14 +40,17 @@
     --button-bg-hover: #357abd;
     --button-text: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-color: #5a9ee2;
   }
 }
 
+/* ===== Reset Styles ===== */
 * {
   margin: 0;
   padding: 0;
 }
 
+/* ===== Base Styles ===== */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -57,7 +64,7 @@ button {
 
 h1 {
   font-size: 1.5rem;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   color: var(--text-primary);
 }
 
@@ -77,10 +84,13 @@ h1 {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 .notification h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+/* ===== Layout Styles ===== */
 #root {
   padding: 10px 15px;
   padding-right: 0;
@@ -90,6 +100,11 @@ h1 {
   background-color: var(--bg-primary);
 }
 
+#content {
+  margin-right: 10px;
+}
+
+/* ===== List Styles ===== */
 #OAlists {
   position: relative;
   min-height: 80px;
@@ -112,9 +127,16 @@ h1 {
 }
 
 #OAlists .list img {
-  margin-right: 20px;
-  max-width: 25px;
-  max-height: 25px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  object-fit: contain;
+}
+
+#OAlists .list .service-name {
+  font-size: 1rem;
+  color: var(--text-primary);
+  flex: 1;
 }
 
 #OAlists .list p {
@@ -122,6 +144,7 @@ h1 {
   color: var(--text-primary);
 }
 
+/* ===== Button Area Styles ===== */
 .btn-area {
   display: flex;
 }
@@ -149,7 +172,7 @@ h1 {
   margin-right: 0;
 }
 
-/* btn setting */
+/* ===== Platform Button Styles ===== */
 #google-load {
   background-color: #fff;
 }
@@ -184,7 +207,7 @@ h1 {
   height: 25px;
 }
 
-/* Theme toggle button */
+/* ===== Theme Toggle Button ===== */
 .theme-toggle {
   position: absolute;
   top: 10px;
@@ -206,7 +229,7 @@ h1 {
   background: var(--border-color);
 }
 
-/* ===== 스크롤바 디자인 ===== */
+/* ===== Scrollbar Styles ===== */
 #OAlists::-webkit-scrollbar {
   width: 8px;
   background: transparent;
@@ -223,80 +246,4 @@ h1 {
 
 #OAlists::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
-}
-
-/* ===== 검색 기능 스타일 ===== */
-.search-container {
-  display: flex;
-  align-items: center;
-  margin: 16px 0;
-  gap: 8px;
-}
-
-.search-input {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.search-input:focus {
-  outline: none;
-  border-color: var(--accent-color);
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
-}
-
-.search-input::placeholder {
-  color: var(--text-secondary);
-}
-
-.search-btn {
-  padding: 8px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 14px;
-}
-
-.search-btn:hover {
-  background: var(--border-color);
-}
-
-/* 검색 결과 하이라이트 */
-.search-highlight {
-  background-color: var(--accent-color);
-  color: white;
-  padding: 2px 4px;
-  border-radius: 3px;
-}
-
-/* 검색 결과 없음 메시지 */
-.no-results {
-  text-align: center;
-  color: var(--text-secondary);
-  font-style: italic;
-  padding: 20px;
-}
-
-/* 플랫폼 헤더 스타일 */
-.platform-header {
-  font-weight: bold;
-  color: var(--accent-color) !important;
-  background: var(--bg-secondary);
-  border-bottom: 2px solid var(--accent-color) !important;
-  padding: 12px 0 !important;
-  height: auto !important;
-  justify-content: center;
-}
-
-.platform-header p {
-  margin: 0;
-  font-size: 1.1rem;
 }

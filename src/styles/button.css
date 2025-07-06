@@ -1,42 +1,7 @@
-button.primary:active {
-  box-shadow: 0 0 var(--button-bg-hover);
-  background: var(--button-bg-hover);
-}
+/* ===== Button Styles ===== */
 
 button.primary {
   background: var(--button-bg);
-  background: -moz-linear-gradient(
-    top,
-    var(--button-bg) 0%,
-    var(--button-bg-hover) 100%
-  );
-  background: -webkit-gradient(
-    left top,
-    left bottom,
-    color-stop(0%, var(--button-bg)),
-    color-stop(100%, var(--button-bg-hover))
-  );
-  background: -webkit-linear-gradient(
-    top,
-    var(--button-bg) 0%,
-    var(--button-bg-hover) 100%
-  );
-  background: -o-linear-gradient(
-    top,
-    var(--button-bg) 0%,
-    var(--button-bg-hover) 100%
-  );
-  background: -ms-linear-gradient(
-    top,
-    var(--button-bg) 0%,
-    var(--button-bg-hover) 100%
-  );
-  background: linear-gradient(
-    to bottom,
-    var(--button-bg) 0%,
-    var(--button-bg-hover) 100%
-  );
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6698cb', endColorstr='#5c8ab8', GradientType=0 );
   padding: 8px 18px;
   font-size: 14px;
   font-weight: 600;
@@ -48,9 +13,47 @@ button.primary {
   border-bottom: 4px solid var(--border-color);
   border-radius: 4px;
   text-shadow: 0 1px 0 var(--shadow-color);
-  transition: all 0.3s ease;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
+/* ===== Hover Effect ===== */
+button.primary:hover {
+  background: var(--button-bg-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-bottom: 4px solid var(--border-color);
+}
+
+/* ===== Active/Pressed Effect ===== */
+button.primary:active {
+  background: var(--button-bg-hover);
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid var(--border-color);
+  transition: all 0.05s ease;
+}
+
+/* ===== Focus Effect ===== */
+button.primary:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Focus Visible (키보드 접근성) ===== */
+button.primary:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* ===== Clear Storage Button ===== */
 #clear-storage-btn {
   margin-bottom: 20px;
 }

@@ -1,9 +1,7 @@
 import { OauthType, ParseConnectionType } from "../types/type";
 
-
 export function isLogin(): boolean {
   if (window.location.href.includes('login')) {
-    console.log('로그인 필요', window.location.href)
     return true
   }
   return false
@@ -13,18 +11,24 @@ export function parseConnection(
   { parentDom, listDom, imageDom, nameDom }: ParseConnectionType,
   cb?: () => void
 ) {
-  const parentEl = document.querySelector(parentDom);
-  if (!parentEl || parentEl === null) {
-    console.log("parent element not found !!");
+  try {
+    const parentEl = document.querySelector(parentDom);
+    if (!parentEl) {
+      return [];
+    }
+
+    const items = Array.from(parentEl.querySelectorAll(listDom)).map((list) => {
+      const image = (list.querySelector(imageDom) as HTMLImageElement)?.src;
+      const name = list.querySelector(nameDom)?.textContent || undefined;
+      return { image, name };
+    });
+
+    if (cb) cb();
+    return items;
+  } catch (error) {
+    console.warn(`Failed to parse connections for ${parentDom}:`, error);
     return [];
   }
-  const items = Array.from(parentEl.querySelectorAll(listDom)).map((list) => {
-    const image = (list.querySelector(imageDom) as HTMLImageElement)?.src;
-    const name = list.querySelector(nameDom)?.textContent || undefined;
-    return { image, name };
-  });
-  if (cb) cb();
-  return items;
 }
 
 export function sendMessageData(
@@ -34,11 +38,17 @@ export function sendMessageData(
 ) {
   setTimeout(
     () => {
-      const data = dataFnc();
-      chrome.runtime.sendMessage({
-        type,
-        payload: data,
-      });
+      try {
+        const data = dataFnc();
+        if (data && data.length > 0) {
+          chrome.runtime.sendMessage({
+            type,
+            payload: data,
+          });
+        }
+      } catch (error) {
+        console.warn(`Failed to send message for ${type}:`, error);
+      }
     },
     time ? time : 1000
   );

@@ -1,25 +1,26 @@
 import { ServiceBackgroundConfig } from "../types/type";
+import { MSGTYPE, STORAGE_KEYS } from "../constants";
 
 export const SERVICES_BACKGROUND: Record<string, ServiceBackgroundConfig> = {
   google: {
-    key: "connections",
-    saveType: "GOOGLE_SAVE",
-    getType: "GOOGLE_GET",
-    readyType: "GOOGLE_READY",
+    key: STORAGE_KEYS.GOOGLE,
+    saveType: MSGTYPE.GOOGLE_SAVE,
+    getType: MSGTYPE.GOOGLE_GET,
+    readyType: MSGTYPE.GOOGLE_READY,
     latest: [],
   },
   naver: {
-    key: "naverConnections",
-    saveType: "NAVER_SAVE",
-    getType: "NAVER_GET",
-    readyType: "NAVER_READY",
+    key: STORAGE_KEYS.NAVER,
+    saveType: MSGTYPE.NAVER_SAVE,
+    getType: MSGTYPE.NAVER_GET,
+    readyType: MSGTYPE.NAVER_READY,
     latest: [],
   },
   kakao: {
-    key: "kakaoConnections",
-    saveType: "KAKAO_SAVE",
-    getType: "KAKAO_GET",
-    readyType: "KAKAO_READY",
+    key: STORAGE_KEYS.KAKAO,
+    saveType: MSGTYPE.KAKAO_SAVE,
+    getType: MSGTYPE.KAKAO_GET,
+    readyType: MSGTYPE.KAKAO_READY,
     latest: [],
   },
 };
