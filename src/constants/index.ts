@@ -65,7 +65,8 @@ export const SERVICE_CONFIG = {
     GET_TYPE: MSGTYPE.GOOGLE_GET,
     READY_TYPE: MSGTYPE.GOOGLE_READY,
     URL: "https://myaccount.google.com/connections",
-    EMPTY_MSG: "데이터가 없습니다. 먼저 구글 로그인을 해주세요.",
+    EMPTY_MSG:
+      "데이터가 없습니다. 먼저<a href='https://myaccount.google.com/connections'>구글 로그인</a>을 해주세요.",
     LOADING_MSG: "구글 연결 정보를 불러오는 중입니다...",
   },
   NAVER: {
@@ -75,7 +76,8 @@ export const SERVICE_CONFIG = {
     GET_TYPE: MSGTYPE.NAVER_GET,
     READY_TYPE: MSGTYPE.NAVER_READY,
     URL: "https://nid.naver.com/internalToken/view/tokenList/pc/ko",
-    EMPTY_MSG: "데이터가 없습니다. 네이버 로그인을 해주세요.",
+    EMPTY_MSG:
+      "데이터가 없습니다. <a href='https://nid.naver.com/nidlogin.login'>네이버 로그인</a>을 해주세요.",
     LOADING_MSG: "네이버 연결 정보를 불러오는 중입니다...",
   },
   KAKAO: {
@@ -85,7 +87,8 @@ export const SERVICE_CONFIG = {
     GET_TYPE: MSGTYPE.KAKAO_GET,
     READY_TYPE: MSGTYPE.KAKAO_READY,
     URL: "https://apps.kakao.com/connected/app/list?service_type=open",
-    EMPTY_MSG: "데이터가 없습니다. 카카오 로그인 해주세요.",
+    EMPTY_MSG:
+      "데이터가 없습니다. <a href='https://accounts.kakao.com/login/?continue=https%3A%2F%2Faccounts.kakao.com%2Fweblogin%2Faccount#login'>카카오 로그인</a>을 해주세요.",
     LOADING_MSG: "카카오 연결 정보를 불러오는 중입니다...",
   },
 } as const;

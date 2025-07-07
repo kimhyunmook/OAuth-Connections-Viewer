@@ -34,7 +34,7 @@ Please install manually and use in developer environment.
 ## Installation
 
 1. Download the ZIP file from <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases"><img src="https://img.shields.io/badge/download-blue"></a>
-2. Navigate to <a href="https://chrome://extensions">`chrome://extensions`</a> in Chrome browser
+2. Navigate to `chrome://extensions` in Chrome browser
 3. Enable **Developer mode** in the top right corner
 4. Click "Load unpacked extension" and select the project folder
 5. Once the extension is added, you can run it by clicking the icon in the top right corner of the browser

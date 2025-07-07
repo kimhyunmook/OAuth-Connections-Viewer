@@ -1,4 +1,3 @@
-import { hideLoading } from "../helpers/loading";
 import { parseConnection, isLoginPage } from "./connection-parser";
 
 /**
@@ -9,6 +8,11 @@ export function parseGoogleConnections() {
     return [];
   }
   if (isLoginPage()) {
+    chrome.runtime.sendMessage({
+      type: "LOGIN_REQUIRED",
+      service: "GOOGLE",
+      tabId: getCurrentTabIdSafely(),
+    });
     return [];
   }
   return parseConnection(
@@ -32,7 +36,11 @@ export function parseNaverConnections() {
     return [];
   }
   if (isLoginPage()) {
-    hideLoading();
+    chrome.runtime.sendMessage({
+      type: "LOGIN_REQUIRED",
+      service: "NAVER",
+      tabId: getCurrentTabIdSafely(),
+    });
     return [];
   }
   return parseConnection(
@@ -56,6 +64,11 @@ export function parseKakaoConnections() {
     return [];
   }
   if (isLoginPage()) {
+    chrome.runtime.sendMessage({
+      type: "LOGIN_REQUIRED",
+      service: "KAKAO",
+      tabId: getCurrentTabIdSafely(),
+    });
     return [];
   }
   return parseConnection(
@@ -69,4 +82,9 @@ export function parseKakaoConnections() {
     0,
     1
   ); // 최대 1번 재시도
+}
+
+// content-script에서 탭 id를 직접 알 수 없으므로, 안전하게 undefined 반환
+function getCurrentTabIdSafely() {
+  return undefined;
 }

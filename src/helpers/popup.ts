@@ -47,33 +47,8 @@ function renderList(
   });
 }
 
-/**
- * 로그인 필요 메시지 리스너
- */
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.type === "LOGIN_REQUIRED") {
-    hideLoading();
-    let emptyMsg = "로그인이 필요합니다! 로그인 후 다시 시도해주세요.";
-    const serviceKey = msg.service as keyof typeof SERVICE_CONFIG;
-    if (
-      serviceKey &&
-      SERVICE_CONFIG[serviceKey] &&
-      SERVICE_CONFIG[serviceKey].EMPTY_MSG
-    ) {
-      emptyMsg = SERVICE_CONFIG[serviceKey].EMPTY_MSG;
-    } else {
-      // serviceKey가 없거나 잘못된 경우에도 플랫폼별 EMPTY_MSG를 기본값으로 사용
-      // (플랫폼별 기본 메시지 중 하나를 선택, 예: 구글)
-      emptyMsg = SERVICE_CONFIG.GOOGLE.EMPTY_MSG;
-    }
-    listUL.innerHTML = `<li class='list fail'>${emptyMsg}</li>`;
-    listUL.style.minHeight = "";
-    listUL.style.height = "";
-    listUL.style.overflow = "";
-    listUL.style.overflowY = "scroll";
-    // alert(emptyMsg);
-  }
-});
+let lastPlatformKey: keyof typeof SERVICE_CONFIG | null = null;
+let lastListener: ((msg: any, sender: any) => void) | null = null;
 
 /**
  * 서비스 클릭 핸들러
@@ -85,6 +60,8 @@ export function handleServiceClick(service: keyof typeof SERVICE_CONFIG) {
     e.preventDefault();
     e.stopPropagation();
     e.stopImmediatePropagation();
+
+    lastPlatformKey = service;
 
     const platformName = PLATFORM_INFO[service]?.DISPLAY_NAME || service;
 
@@ -99,8 +76,14 @@ export function handleServiceClick(service: keyof typeof SERVICE_CONFIG) {
         return;
       }
 
+      let openedTabId: number | null = null;
       chrome.tabs.create({ url: cfg.URL, active: false }, (tab) => {
-        chrome.runtime.onMessage.addListener(function listener(msg, sender) {
+        openedTabId = tab.id!;
+        // 리스너 중복 방지
+        if (lastListener) {
+          chrome.runtime.onMessage.removeListener(lastListener);
+        }
+        lastListener = function listener(msg, sender) {
           if (msg.type === cfg.READY_TYPE && msg.tabId === tab.id) {
             chrome.tabs.remove(tab.id!);
             chrome.runtime.sendMessage(
@@ -110,9 +93,57 @@ export function handleServiceClick(service: keyof typeof SERVICE_CONFIG) {
               }
             );
             chrome.runtime.onMessage.removeListener(listener);
+            lastListener = null;
           }
-        });
+          // LOGIN_REQUIRED 메시지 오면 열린 탭 닫기
+          if (
+            msg.type === "LOGIN_REQUIRED" &&
+            openedTabId &&
+            (!sender.tab ||
+              sender.tab.id === openedTabId ||
+              msg.tabId === openedTabId)
+          ) {
+            chrome.tabs.remove(openedTabId);
+            chrome.runtime.onMessage.removeListener(listener);
+            lastListener = null;
+          }
+        };
+        chrome.runtime.onMessage.addListener(lastListener);
       });
     });
   };
 }
+
+// 로그인 필요 메시지 리스너 (항상 클릭한 플랫폼 기준 안내문구)
+chrome.runtime.onMessage.addListener((msg) => {
+  if (msg.type === "LOGIN_REQUIRED") {
+    hideLoading();
+    let emptyMsg = "로그인이 필요합니다! 로그인 후 다시 시도해주세요.";
+    // 클릭한 플랫폼이 있으면 그 EMPTY_MSG를 우선 사용
+    if (
+      lastPlatformKey &&
+      SERVICE_CONFIG[lastPlatformKey] &&
+      SERVICE_CONFIG[lastPlatformKey].EMPTY_MSG
+    ) {
+      emptyMsg = SERVICE_CONFIG[lastPlatformKey].EMPTY_MSG;
+    } else {
+      // 메시지에 serviceKey가 있으면 그 EMPTY_MSG 사용
+      const serviceKey = msg.service as keyof typeof SERVICE_CONFIG;
+      if (
+        serviceKey &&
+        SERVICE_CONFIG[serviceKey] &&
+        SERVICE_CONFIG[serviceKey].EMPTY_MSG
+      ) {
+        emptyMsg = SERVICE_CONFIG[serviceKey].EMPTY_MSG;
+      } else {
+        emptyMsg = SERVICE_CONFIG.GOOGLE.EMPTY_MSG;
+      }
+    }
+    listUL.innerHTML = `<li class='list fail'>${emptyMsg}</li>`;
+    listUL.style.minHeight = "";
+    listUL.style.height = "";
+    listUL.style.overflow = "";
+    listUL.style.overflowY = "scroll";
+    // alert(emptyMsg);
+  }
+});
