@@ -1,3 +1,5 @@
+/* ===== Global Styles ===== */
+
 :root {
   /* Light mode colors */
   --bg-primary: #ffffff;
@@ -9,6 +11,7 @@
   --button-bg-hover: #74a3b0;
   --button-text: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.15);
+  --accent-color: #4a90e2;
 }
 
 [data-theme="dark"] {
@@ -22,6 +25,7 @@
   --button-bg-hover: #357abd;
   --button-text: #ffffff;
   --shadow-color: rgba(0, 0, 0, 0.3);
+  --accent-color: #5a9ee2;
 }
 
 /* System dark mode detection */
@@ -36,14 +40,17 @@
     --button-bg-hover: #357abd;
     --button-text: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.3);
+    --accent-color: #5a9ee2;
   }
 }
 
+/* ===== Reset Styles ===== */
 * {
   margin: 0;
   padding: 0;
 }
 
+/* ===== Base Styles ===== */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
@@ -57,7 +64,7 @@ button {
 
 h1 {
   font-size: 1.5rem;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   color: var(--text-primary);
 }
 
@@ -77,10 +84,13 @@ h1 {
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 .notification h2 {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+/* ===== Layout Styles ===== */
 #root {
   padding: 10px 15px;
   padding-right: 0;
@@ -90,6 +100,11 @@ h1 {
   background-color: var(--bg-primary);
 }
 
+#content {
+  margin-right: 10px;
+}
+
+/* ===== List Styles ===== */
 #OAlists {
   position: relative;
   min-height: 80px;
@@ -112,9 +127,16 @@ h1 {
 }
 
 #OAlists .list img {
-  margin-right: 20px;
-  max-width: 25px;
-  max-height: 25px;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  object-fit: contain;
+}
+
+#OAlists .list .service-name {
+  font-size: 1rem;
+  color: var(--text-primary);
+  flex: 1;
 }
 
 #OAlists .list p {
@@ -122,6 +144,7 @@ h1 {
   color: var(--text-primary);
 }
 
+/* ===== Button Area Styles ===== */
 .btn-area {
   display: flex;
 }
@@ -149,7 +172,7 @@ h1 {
   margin-right: 0;
 }
 
-/* btn setting */
+/* ===== Platform Button Styles ===== */
 #google-load {
   background-color: #fff;
 }
@@ -184,7 +207,7 @@ h1 {
   height: 25px;
 }
 
-/* Theme toggle button */
+/* ===== Theme Toggle Button ===== */
 .theme-toggle {
   position: absolute;
   top: 10px;
@@ -206,34 +229,21 @@ h1 {
   background: var(--border-color);
 }
 
-/* ===== 스크롤바 디자인 ===== */
+/* ===== Scrollbar Styles ===== */
 #OAlists::-webkit-scrollbar {
   width: 8px;
   background: transparent;
-}
-
-#OAlists::-webkit-scrollbar-thumb {
-  background: #b0c4de;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-
-#OAlists::-webkit-scrollbar-thumb:hover {
-  background: #6698cb;
 }
 
 #OAlists::-webkit-scrollbar-track {
   background: transparent;
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-thumb {
-  background: #3a4a5a;
+#OAlists::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
 }
 
-[data-theme="dark"] #OAlists::-webkit-scrollbar-thumb:hover {
-  background: #6698cb;
-}
-
-[data-theme="dark"] #OAlists::-webkit-scrollbar-track {
-  background: transparent;
+#OAlists::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
 }
