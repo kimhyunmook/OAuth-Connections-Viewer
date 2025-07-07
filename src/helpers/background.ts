@@ -14,6 +14,7 @@ export function handleSave(
       type: service.readyType,
       tabId: sender.tab.id,
     });
+    chrome.tabs && chrome.tabs.remove && chrome.tabs.remove(sender.tab.id);
   }
 }
 

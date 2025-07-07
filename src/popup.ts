@@ -1,22 +1,18 @@
 import { getPlatformButtons } from "./utils/dom-utils";
 import { applyTheme, setupSystemThemeListener } from "./utils/theme-utils";
 import { getAllConnections, clearStorage } from "./services/storage-service";
-import { isValidSearchTerm, searchConnections, filterConnectionsByPlatform } from "./services/search-service";
-import { renderSearchResults, renderPlatformConnections } from "./utils/ui-utils";
+import {
+  isValidSearchTerm,
+  searchConnections,
+} from "./services/search-service";
+import { renderSearchResults } from "./utils/ui-utils";
 import { handleServiceClick } from "./helpers/popup";
-import {
-  PlatformType,
-  SearchViewType,
-  AllConnections
-} from "./types/type";
-import {
-  SEARCH_CONFIG,
-  PLATFORM_INFO,
-  UI_MESSAGES,
-} from "./constants";
+import { PlatformType, SearchViewType, AllConnections } from "./types/type";
+import { SEARCH_CONFIG, PLATFORM_INFO, UI_MESSAGES } from "./constants";
+import { hideLoading } from "./helpers/loading";
 
 // ===== 초기화 =====
-applyTheme('system');
+applyTheme("system");
 setupSystemThemeListener();
 
 // ===== DOM 요소 =====
@@ -24,12 +20,14 @@ const clearBtn = document.getElementById("clear-storage-btn");
 const searchInput = document.getElementById("search-input") as HTMLInputElement;
 const searchBtn = document.getElementById("search-btn") as HTMLButtonElement;
 const listUL = document.getElementById("OAlists") as HTMLUListElement;
-const themeToggle = document.getElementById("theme-toggle") as HTMLButtonElement;
+const themeToggle = document.getElementById(
+  "theme-toggle"
+) as HTMLButtonElement;
 
 // ===== 상태 관리 =====
 let allConnections: AllConnections | null = null;
 let isSearching = false;
-let currentView: SearchViewType = 'search';
+let currentView: SearchViewType = "search";
 let searchTimeout: NodeJS.Timeout | null = null;
 
 // ===== 유틸리티 함수 =====
@@ -39,13 +37,13 @@ let searchTimeout: NodeJS.Timeout | null = null;
  */
 function resetSearchState(): void {
   if (searchInput) {
-    searchInput.value = '';
+    searchInput.value = "";
     searchInput.disabled = false;
     searchInput.placeholder = UI_MESSAGES.ENTER_TO_SEARCH;
   }
 
   isSearching = false;
-  currentView = 'search';
+  currentView = "search";
   listUL.innerHTML = `<li class='list'>${UI_MESSAGES.NODATA}</li>`;
 
   if (searchTimeout) {
@@ -60,7 +58,8 @@ function resetSearchState(): void {
 function updateSearchInputForPlatform(platform: PlatformType): void {
   if (!searchInput) return;
 
-  const platformInfo = PLATFORM_INFO[platform.toUpperCase() as keyof typeof PLATFORM_INFO];
+  const platformInfo =
+    PLATFORM_INFO[platform.toUpperCase() as keyof typeof PLATFORM_INFO];
   if (platformInfo) {
     searchInput.value = `${platformInfo.DISPLAY_NAME} 연결 목록`;
     searchInput.disabled = true;
@@ -83,7 +82,7 @@ function performDebouncedSearch(): void {
  * 검색 실행
  */
 async function performSearch(): Promise<void> {
-  const searchTerm = searchInput?.value || '';
+  const searchTerm = searchInput?.value || "";
 
   if (!isValidSearchTerm(searchTerm)) {
     resetSearchState();
@@ -91,7 +90,7 @@ async function performSearch(): Promise<void> {
   }
 
   isSearching = true;
-  currentView = 'search';
+  currentView = "search";
 
   try {
     // 매번 최신 스토리지 데이터 가져오기
@@ -106,7 +105,7 @@ async function performSearch(): Promise<void> {
     listUL.style.overflow = "";
     listUL.style.overflowY = "scroll";
   } catch (error) {
-    console.error('Search failed:', error);
+    console.error("Search failed:", error);
     listUL.innerHTML = `<li class="list no-results">${UI_MESSAGES.SEARCH_ERROR}</li>`;
   }
 }
@@ -115,7 +114,7 @@ async function performSearch(): Promise<void> {
  * 플랫폼 버튼 클릭 시 검색 상태 초기화
  */
 function clearSearchAndReset(): void {
-  if (isSearching || currentView === 'platform') {
+  if (isSearching || currentView === "platform") {
     resetSearchState();
   }
 }
@@ -183,7 +182,7 @@ if (searchInput) {
 
       // 검색 상태 초기화
       isSearching = false;
-      currentView = 'search';
+      currentView = "search";
       listUL.innerHTML = `<li class='list'>${UI_MESSAGES.NODATA}</li>`;
 
       // OAlists를 원래 크기로 복원
@@ -192,9 +191,9 @@ if (searchInput) {
       listUL.style.overflow = "";
       listUL.style.overflowY = "scroll";
 
-      console.log('Storage data refreshed on focus');
+      console.log("Storage data refreshed on focus");
     } catch (error) {
-      console.error('Failed to refresh storage data:', error);
+      console.error("Failed to refresh storage data:", error);
       listUL.innerHTML = `<li class='list'>${UI_MESSAGES.NODATA}</li>`;
     }
   });
@@ -211,7 +210,10 @@ Object.entries(platformButtons).forEach(([platform, btn]) => {
       e.preventDefault();
       e.stopPropagation();
       clearSearchAndReset();
-      const platformType = platform.toUpperCase() as 'GOOGLE' | 'NAVER' | 'KAKAO';
+      const platformType = platform.toUpperCase() as
+        | "GOOGLE"
+        | "NAVER"
+        | "KAKAO";
       handleServiceClick(platformType)(e);
     });
   }

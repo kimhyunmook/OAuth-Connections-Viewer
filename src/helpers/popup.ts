@@ -8,7 +8,11 @@ const listUL = document.getElementById("OAlists") as HTMLUListElement;
 /**
  * 연결 리스트 렌더링
  */
-function renderList(conns: ConnectionType[], emptyMsg: string, platform?: string) {
+function renderList(
+  conns: ConnectionType[],
+  emptyMsg: string,
+  platform?: string
+) {
   listUL.innerHTML = "";
   hideLoading();
 
@@ -48,7 +52,26 @@ function renderList(conns: ConnectionType[], emptyMsg: string, platform?: string
  */
 chrome.runtime.onMessage.addListener((msg) => {
   if (msg.type === "LOGIN_REQUIRED") {
-    alert("로그인이 필요합니다! 로그인 후 다시 시도해주세요.");
+    hideLoading();
+    let emptyMsg = "로그인이 필요합니다! 로그인 후 다시 시도해주세요.";
+    const serviceKey = msg.service as keyof typeof SERVICE_CONFIG;
+    if (
+      serviceKey &&
+      SERVICE_CONFIG[serviceKey] &&
+      SERVICE_CONFIG[serviceKey].EMPTY_MSG
+    ) {
+      emptyMsg = SERVICE_CONFIG[serviceKey].EMPTY_MSG;
+    } else {
+      // serviceKey가 없거나 잘못된 경우에도 플랫폼별 EMPTY_MSG를 기본값으로 사용
+      // (플랫폼별 기본 메시지 중 하나를 선택, 예: 구글)
+      emptyMsg = SERVICE_CONFIG.GOOGLE.EMPTY_MSG;
+    }
+    listUL.innerHTML = `<li class='list fail'>${emptyMsg}</li>`;
+    listUL.style.minHeight = "";
+    listUL.style.height = "";
+    listUL.style.overflow = "";
+    listUL.style.overflowY = "scroll";
+    // alert(emptyMsg);
   }
 });
 
@@ -65,7 +88,7 @@ export function handleServiceClick(service: keyof typeof SERVICE_CONFIG) {
 
     const platformName = PLATFORM_INFO[service]?.DISPLAY_NAME || service;
 
-    listUL.innerHTML = '';
+    listUL.innerHTML = "";
     showLoading("#OAlists", cfg.LOADING_MSG);
 
     chrome.storage.local.get(cfg.STORAGE_KEY, (store) => {

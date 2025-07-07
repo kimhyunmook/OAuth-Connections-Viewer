@@ -1,22 +1,49 @@
+import { MSGTYPE } from "./constants";
 import { isLoginPage, sendMessageData } from "./services/connection-parser";
-import { parseGoogleConnections, parseNaverConnections, parseKakaoConnections } from "./services/platform-parsers";
+import {
+  parseGoogleConnections,
+  parseNaverConnections,
+  parseKakaoConnections,
+} from "./services/platform-parsers";
 
-// 페이지 로드 후 실행
+const PLATFORM_CONFIGS = [
+  {
+    url: "myaccount.google.com",
+    type: "GOOGLE_SAVE",
+    service: "GOOGLE",
+    parser: parseGoogleConnections,
+  },
+  {
+    url: "nid.naver.com",
+    type: "NAVER_SAVE",
+    service: "NAVER",
+    parser: parseNaverConnections,
+  },
+  {
+    url: "apps.kakao.com",
+    type: "KAKAO_SAVE",
+    service: "KAKAO",
+    parser: parseKakaoConnections,
+  },
+];
+
+function handlePlatformScript({ url, type, service, parser }: any) {
+  if (window.location.href.includes(url)) {
+    if (isLoginPage()) {
+      chrome.runtime.sendMessage({
+        type: MSGTYPE.LOGIN_REQUIRED,
+        service,
+      });
+      return true;
+    }
+    sendMessageData(type, parser, 1000);
+    return true;
+  }
+  return false;
+}
+
 window.addEventListener("load", () => {
-  // 각 플랫폼별로 조건부 실행
-  if (window.location.href.includes('myaccount.google.com')) {
-    sendMessageData("GOOGLE_SAVE", parseGoogleConnections, 1000);
-  }
-
-  if (window.location.href.includes('nid.naver.com')) {
-    sendMessageData("NAVER_SAVE", parseNaverConnections, 1000);
-  }
-
-  if (window.location.href.includes('apps.kakao.com')) {
-    sendMessageData("KAKAO_SAVE", parseKakaoConnections, 1000);
+  for (const config of PLATFORM_CONFIGS) {
+    if (handlePlatformScript(config)) break;
   }
 });
-
-if (isLoginPage()) {
-  chrome.runtime.sendMessage({ type: "LOGIN_REQUIRED" });
-}

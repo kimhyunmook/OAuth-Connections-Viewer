@@ -7,7 +7,8 @@ export type OauthType =
   | "NAVER_READY"
   | "KAKAO_GET"
   | "KAKAO_SAVE"
-  | "KAKAO_READY";
+  | "KAKAO_READY"
+  | "LOGIN_REQUIRED";
 
 export interface MsgType {
   type: OauthType;
@@ -31,6 +32,7 @@ export interface ServiceBackgroundConfig {
   saveType: string;
   getType: string;
   readyType: string;
+  loginRequiredType: string;
   latest: ConnectionType[];
 }
 
@@ -54,7 +56,7 @@ export interface ServiceConfig {
 // ===== 검색 관련 타입들 =====
 
 // 플랫폼 타입
-export type PlatformType = 'google' | 'naver' | 'kakao';
+export type PlatformType = "google" | "naver" | "kakao";
 
 // 검색 결과 타입
 export interface SearchResult extends ConnectionType {
@@ -69,7 +71,7 @@ export interface AllConnections {
 }
 
 // 검색 상태 타입
-export type SearchViewType = 'search' | 'platform';
+export type SearchViewType = "search" | "platform";
 
 // 검색 설정 타입
 export interface SearchConfig {

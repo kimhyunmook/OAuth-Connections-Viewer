@@ -7,6 +7,7 @@ export const SERVICES_BACKGROUND: Record<string, ServiceBackgroundConfig> = {
     saveType: MSGTYPE.GOOGLE_SAVE,
     getType: MSGTYPE.GOOGLE_GET,
     readyType: MSGTYPE.GOOGLE_READY,
+    loginRequiredType: MSGTYPE.GOOGLE_LOGIN_REQUIRED,
     latest: [],
   },
   naver: {
@@ -14,6 +15,7 @@ export const SERVICES_BACKGROUND: Record<string, ServiceBackgroundConfig> = {
     saveType: MSGTYPE.NAVER_SAVE,
     getType: MSGTYPE.NAVER_GET,
     readyType: MSGTYPE.NAVER_READY,
+    loginRequiredType: MSGTYPE.NAVER_LOGIN_REQUIRED,
     latest: [],
   },
   kakao: {
@@ -21,6 +23,7 @@ export const SERVICES_BACKGROUND: Record<string, ServiceBackgroundConfig> = {
     saveType: MSGTYPE.KAKAO_SAVE,
     getType: MSGTYPE.KAKAO_GET,
     readyType: MSGTYPE.KAKAO_READY,
+    loginRequiredType: MSGTYPE.KAKAO_LOGIN_REQUIRED,
     latest: [],
   },
 };
