@@ -23,12 +23,18 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Zip dist folder
+      - name: List dist contents
+        run: ls -la dist/
+
+      - name: Zip dist folder contents only
         run: cd dist && zip -r ../OAuth-Connections-Viewer.zip . && cd ..
+
+      - name: List files before release
+        run: ls -la *.zip
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: myOauth-dist.zip
+          files: OAuth-Connections-Viewer.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # auto-generated token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
