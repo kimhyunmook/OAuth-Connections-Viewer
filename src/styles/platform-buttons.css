@@ -1,0 +1,50 @@
+/* ===== Platform Button Area Styles ===== */
+.btn-area {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.btn-area a {
+  border-radius: 100%;
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--border-color);
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.btn-area a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-area a:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-area a:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3), 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-area a img {
+  height: 20px;
+  width: 20px;
+}
+
+.btn-area a:last-child {
+  margin-right: 0;
+}

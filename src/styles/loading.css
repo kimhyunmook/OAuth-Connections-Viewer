@@ -1,75 +1,57 @@
 /* ===== Loading Styles ===== */
 
+.oacv-loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
 .oacv-loading-backdrop {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  min-height: 300px;
-  background: rgba(255, 255, 255, 0.8);
-  z-index: 10000;
+  background-color: rgba(255, 255, 255, 0.9);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-/* 다크 테마 지원 */
-.dark-theme .oacv-loading-backdrop {
-  background: rgba(30, 30, 30, 0.8);
+  backdrop-filter: blur(2px);
 }
 
 [data-theme="dark"] .oacv-loading-backdrop {
-  background: rgba(30, 30, 30, 0.8);
+  background-color: rgba(26, 26, 26, 0.9);
 }
 
-/* 로딩 중일 때 OAlists 스크롤 제어 */
-#OAlists:has(#oacv-loading) {
-  overflow: hidden !important;
-  overflow-y: hidden !important;
-  min-height: 300px !important;
-}
-
-/* ===== Spinner Styles ===== */
 .oacv-spinner {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100%;
-  min-height: 200px;
-  padding: 30px;
-  box-sizing: border-box;
+  text-align: center;
 }
 
 .oacv-spinner-circle {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #666;
-  border-top: 5px solid transparent;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border-color);
+  border-top: 4px solid var(--accent-color);
   border-radius: 50%;
-  animation: oacv-spin 1s linear infinite;
-  margin-bottom: 25px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
 }
 
-/* 다크 테마에서 스피너 색상 */
-.dark-theme .oacv-spinner-circle {
-  border-color: #ccc;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
+.oacv-spinner p {
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
 }
 
-[data-theme="dark"] .oacv-spinner-circle {
-  border-color: #ccc;
-  border-top-color: transparent;
-  border-left-color: transparent;
-  border-right-color: transparent;
-}
-
-@keyframes oacv-spin {
+@keyframes spin {
   0% {
     transform: rotate(0deg);
   }
@@ -78,21 +60,24 @@
   }
 }
 
-.oacv-spinner p {
-  color: #333;
-  font-weight: bold;
-  font-size: 18px;
+/* ===== Loading Active State ===== */
+.oacv-loading-active {
+  overflow: hidden !important;
+  pointer-events: none;
+}
+
+/* ===== List Item States ===== */
+.list.fail {
+  color: #e74c3c;
+  font-style: italic;
+  background-color: rgba(231, 76, 60, 0.1);
+  border-radius: 4px;
+  margin: 4px 0;
+}
+
+.list.no-results {
+  color: var(--text-secondary);
+  font-style: italic;
   text-align: center;
-  margin: 0;
-  line-height: 1.6;
-  white-space: nowrap;
-}
-
-/* 다크 테마에서 텍스트 색상 */
-.dark-theme .oacv-spinner p {
-  color: #fff;
-}
-
-[data-theme="dark"] .oacv-spinner p {
-  color: #fff;
+  padding: 20px;
 }

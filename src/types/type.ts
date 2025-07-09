@@ -32,8 +32,10 @@ export interface ServiceBackgroundConfig {
   saveType: string;
   getType: string;
   readyType: string;
-  loginRequiredType: string;
   latest: ConnectionType[];
+  displayName: string;
+  iconPath: string;
+  backgroundColor: string;
 }
 
 export interface ServiceConfigItem {
@@ -73,21 +75,41 @@ export interface AllConnections {
 // 검색 상태 타입
 export type SearchViewType = "search" | "platform";
 
-// 검색 설정 타입
-export interface SearchConfig {
-  minSearchLength: number;
-  debounceDelay: number;
-  maxResults: number;
+
+
+export interface SearchElements {
+  searchInput: HTMLInputElement | null;
+  searchBtn: HTMLButtonElement | null;
+  listUL: HTMLUListElement | null;
 }
 
-// 플랫폼 정보 타입
-export interface PlatformInfo {
-  name: string;
-  displayName: string;
-  storageKey: string;
-  color: string;
+
+export interface SearchState {
+  isSearching: boolean;
+  currentView: SearchViewType;
 }
 
-// 검색 이벤트 콜백 타입
-export type PlatformClickCallback = (platform: PlatformType) => void;
-export type SearchCallback = (results: SearchResult[]) => void;
+
+export interface TabMessage {
+  type: string;
+  tabId?: number;
+  service?: string;
+}
+
+export interface ConnectionResponse {
+  connections: ConnectionType[];
+  error?: string;
+}
+
+
+// 플랫폼별 파싱 설정
+export interface PlatformConfig {
+  url: string;
+  service: string;
+  selectors: {
+    parentDom: string;
+    listDom: string;
+    imageDom: string;
+    nameDom: string;
+  };
+}

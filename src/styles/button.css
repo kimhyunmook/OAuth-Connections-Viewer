@@ -1,5 +1,4 @@
-/* ===== Button Styles ===== */
-
+/* ===== Basic Button Styles ===== */
 button.primary {
   background: var(--button-bg);
   padding: 8px 18px;
@@ -51,9 +50,4 @@ button.primary:focus {
 button.primary:focus-visible {
   outline: 2px solid var(--accent-color);
   outline-offset: 2px;
-}
-
-/* ===== Clear Storage Button ===== */
-#clear-storage-btn {
-  margin-bottom: 20px;
 }

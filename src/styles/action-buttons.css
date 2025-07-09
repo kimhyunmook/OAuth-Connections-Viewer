@@ -1,0 +1,100 @@
+/* ===== All Button Styles ===== */
+.all-btn {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  border: 1px solid var(--border-color);
+  margin-right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.all-btn:hover {
+  background: linear-gradient(135deg, #5a6fd8 0%, #6a4ba2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+}
+
+.all-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.all-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3),
+    0 2px 4px rgba(102, 126, 234, 0.3);
+}
+
+.all-btn i {
+  font-size: 16px;
+}
+
+.all-btn span {
+  display: none;
+}
+
+/* ===== Clear Button Styles ===== */
+.clear-btn {
+  padding: 0 15px;
+  border-radius: 12px;
+  width: auto;
+  height: 40px;
+  border: 1px solid var(--border-color);
+  margin: 16px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+  outline: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.clear-btn:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.4);
+}
+
+.clear-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+}
+
+.clear-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.3),
+    0 2px 4px rgba(255, 107, 107, 0.3);
+}
+
+.clear-btn i {
+  font-size: 16px;
+}
+
+.clear-btn span {
+  margin-left: 10px;
+}
