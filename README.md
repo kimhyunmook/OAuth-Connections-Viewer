@@ -24,10 +24,11 @@ Please install manually and use in developer environment.
 ## Key Features
 
 - **Google, Naver, Kakao** account connected external service lists can be viewed at once
-- Dark mode support and theme toggle
+- Dark mode support
 - Storage data deletion button provided
 - Loading UI and login detection guidance
 - **Search functionality** across all platforms with real-time filtering
+- Instantly check if the current homepage exists in the OAuth list
 
 ---
 
