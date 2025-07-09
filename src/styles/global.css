@@ -68,6 +68,28 @@ h1 {
   color: var(--text-primary);
 }
 
+.current-page-url {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+  color: var(--text-secondary);
+  word-break: break-all;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.2;
+  font-style: italic;
+}
+
+.current-page-title {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  word-break: break-all;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
 .subtitle {
   display: block;
   font-size: 14px;
@@ -144,33 +166,13 @@ h1 {
   color: var(--text-primary);
 }
 
-/* ===== Button Area Styles ===== */
-.btn-area {
-  display: flex;
-}
-
-.btn-area a {
-  border-radius: 100%;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border-color);
-  margin-right: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background-color: var(--bg-secondary);
-  transition: all 0.3s ease;
-}
-
-.btn-area a img {
-  height: 30px;
-  width: 30px;
-}
-
-.btn-area a:last-child {
-  margin-right: 0;
-}
+/* listUL 스타일 초기화/복원용 */
+/* .list-scroll-reset {
+  min-height: unset !important;
+  height: unset !important;
+  overflow: unset !important;
+  overflow-y: scroll !important;
+} */
 
 /* ===== Platform Button Styles ===== */
 #google-load {
@@ -198,35 +200,13 @@ h1 {
 }
 
 #naver-load img {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 
 #kakao-load img {
   width: 25px;
   height: 25px;
-}
-
-/* ===== Theme Toggle Button ===== */
-.theme-toggle {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--bg-secondary);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-  background: var(--border-color);
 }
 
 /* ===== Scrollbar Styles ===== */
@@ -246,4 +226,69 @@ h1 {
 
 #OAlists::-webkit-scrollbar-thumb:hover {
   background: var(--text-secondary);
+}
+
+/* ===== Matched Connection Styles ===== */
+.matched-connection {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: var(--bg-secondary);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  margin: 4px 0;
+}
+
+.platform-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: white;
+}
+
+.platform-badge.google {
+  background-color: #4285f4;
+}
+
+.platform-badge.naver {
+  background-color: #03c75a;
+}
+
+.platform-badge.kakao {
+  background-color: #fee500;
+  color: #000;
+}
+
+.connection-name {
+  font-weight: 500;
+  color: var(--text-primary);
+  flex: 1;
+}
+
+.storage-key {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  font-family: monospace;
+  background-color: var(--bg-primary);
+  padding: 2px 4px;
+  border-radius: 3px;
+  border: 1px solid var(--border-color);
+}
+
+/* ===== Error Message Styles ===== */
+.error-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #ff4444;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1000;
+  text-align: center;
+  max-width: 300px;
 }

@@ -1,14 +1,12 @@
 {
   "name": "OAuth Connections Viewer",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "여러 플랫폼의 OAuth 연결을 한 눈에 확인할 수 있는 확장 프로그램입니다. 내가 OAuth로 가입한 사이트를 좀 더 편하게 보기 위해 제작하였습니다.",
   "main": "index.js",
   "scripts": {
-    "prebuild": "rimraf dist && mkdirp dist",
-    "build": "npm run prebuild && webpack --mode=production && npm run postbuild",
-    "postbuild": "cpy manifest.json dist/ && cp src/popup.html dist/popup.html && cpy src/styles/**/* dist/styles/ && cp -r src/assets dist/",
-    "dev:init": "rimraf dist && mkdirp dist && cpy manifest.json dist/ && cp src/popup.html dist/popup.html && cpy src/styles/**/* dist/styles/ && cp -r src/assets dist/",
-    "dev": "npm run dev:init && concurrently \"webpack --watch --mode=development\" \"chokidar 'src/styles/**/*.css' -c 'cpy src/styles/**/* dist/styles/'\" \"chokidar 'src/popup.html' -c 'cp src/popup.html dist/popup.html'\" \"chokidar 'src/assets/**/*' -c 'cp -r src/assets dist/'\""
+    "dev": "webpack --watch --mode=development",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --mode=production"
   },
   "keywords": [
     "oauth",
@@ -22,14 +20,11 @@
   "type": "commonjs",
   "devDependencies": {
     "@types/chrome": "^0.0.328",
-    "chokidar": "^4.0.3",
-    "chokidar-cli": "^3.0.0",
-    "concurrently": "^9.2.0",
-    "cpy-cli": "^5.0.0",
-    "mkdirp": "^3.0.1",
+    "copy-webpack-plugin": "^13.0.0",
     "rimraf": "^6.0.1",
     "ts-loader": "^9.5.2",
     "typescript": "^5.8.3",
+    "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1"
   }
 }

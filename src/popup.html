@@ -6,6 +6,9 @@
     <title>OAuth Connections Viewer</title>
     <link rel="stylesheet" href="./styles/global.css" />
     <link rel="stylesheet" href="./styles/button.css" />
+    <link rel="stylesheet" href="./styles/platform-buttons.css" />
+    <link rel="stylesheet" href="./styles/action-buttons.css" />
+    <link rel="stylesheet" href="./styles/ui-components.css" />
     <link rel="stylesheet" href="./styles/loading.css" />
     <link rel="stylesheet" href="./styles/search.css" />
     <link
@@ -14,24 +17,19 @@
     />
   </head>
   <body>
-    <button class="theme-toggle" id="theme-toggle" title="테마 변경">
-      <i class="fas fa-moon"></i>
-    </button>
     <main id="root">
       <section id="content">
         <h1>OAuth Connections</h1>
+        <p id="current-page-url" class="current-page-url"></p>
+        <p id="current-page-title" class="current-page-title"></p>
 
         <p class="subtitle">Checkable Platform</p>
-        <article class="btn-area">
-          <a id="google-load" href="#">
-            <img src="./assets/google-icon.svg" alt="google-oauth" />
-          </a>
-          <a id="naver-load" href="#">
-            <img src="./assets/naver-icon.svg" alt="naver-oauth" />
-          </a>
-          <a id="kakao-load" href="#">
-            <img src="./assets/kakao-icon.svg" alt="kakao-oauth" />
-          </a>
+        <article class="btn-area" id="platform-buttons">
+          <button id="all-btn" class="platform-btn all-btn">
+            <i class="fas fa-globe"></i>
+            <span>All</span>
+          </button>
+          <!-- 플랫폼 버튼들이 JavaScript로 동적 생성됩니다 -->
         </article>
 
         <article class="search-container">
@@ -47,11 +45,15 @@
         </article>
       </section>
 
-      <ul id="OAlists">
-        <!-- <li class="list dft">서비스를 선택 또는 검색해주세요.</li> -->
-      </ul>
-      <button id="clear-storage-btn" class="primary" style="margin-top: 16px">
-        OAuth 데이터 삭제
+      <div id="OAcontent">
+        <ul id="OAlists">
+          <li class="list">데이터가 없습니다.</li>
+        </ul>
+      </div>
+
+      <button id="clear-storage-btn" class="platform-btn clear-btn">
+        <i class="fas fa-trash"></i>
+        <span>Storage Clear</span>
       </button>
       <div class="notification">
         <h2>notice</h2>

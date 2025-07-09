@@ -7,7 +7,8 @@ export type OauthType =
   | "NAVER_READY"
   | "KAKAO_GET"
   | "KAKAO_SAVE"
-  | "KAKAO_READY";
+  | "KAKAO_READY"
+  | "LOGIN_REQUIRED";
 
 export interface MsgType {
   type: OauthType;
@@ -18,6 +19,12 @@ export type ConnectionType = {
   image?: string;
   name?: string;
 };
+
+// 플랫폼 정보를 포함한 연결 엔티티
+export interface ConnectionEntity extends ConnectionType {
+  platform: PlatformType;
+  storageKey: string;
+}
 
 export interface ParseConnectionType {
   parentDom: string;
@@ -32,6 +39,9 @@ export interface ServiceBackgroundConfig {
   getType: string;
   readyType: string;
   latest: ConnectionType[];
+  displayName: string;
+  iconPath: string;
+  backgroundColor: string;
 }
 
 export interface ServiceConfigItem {
@@ -54,7 +64,7 @@ export interface ServiceConfig {
 // ===== 검색 관련 타입들 =====
 
 // 플랫폼 타입
-export type PlatformType = 'google' | 'naver' | 'kakao';
+export type PlatformType = "google" | "naver" | "kakao";
 
 // 검색 결과 타입
 export interface SearchResult extends ConnectionType {
@@ -69,23 +79,43 @@ export interface AllConnections {
 }
 
 // 검색 상태 타입
-export type SearchViewType = 'search' | 'platform';
+export type SearchViewType = "search" | "platform";
 
-// 검색 설정 타입
-export interface SearchConfig {
-  minSearchLength: number;
-  debounceDelay: number;
-  maxResults: number;
+
+
+export interface SearchElements {
+  searchInput: HTMLInputElement | null;
+  searchBtn: HTMLButtonElement | null;
+  listUL: HTMLUListElement | null;
 }
 
-// 플랫폼 정보 타입
-export interface PlatformInfo {
-  name: string;
-  displayName: string;
-  storageKey: string;
-  color: string;
+
+export interface SearchState {
+  isSearching: boolean;
+  currentView: SearchViewType;
 }
 
-// 검색 이벤트 콜백 타입
-export type PlatformClickCallback = (platform: PlatformType) => void;
-export type SearchCallback = (results: SearchResult[]) => void;
+
+export interface TabMessage {
+  type: string;
+  tabId?: number;
+  service?: string;
+}
+
+export interface ConnectionResponse {
+  connections: ConnectionType[];
+  error?: string;
+}
+
+
+// 플랫폼별 파싱 설정
+export interface PlatformConfig {
+  url: string;
+  service: string;
+  selectors: {
+    parentDom: string;
+    listDom: string;
+    imageDom: string;
+    nameDom: string;
+  };
+}
