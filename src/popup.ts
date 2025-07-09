@@ -4,7 +4,7 @@ import { StorageController } from "./modules/controllers/storage-controller";
 import { PopupService } from "./modules/services/popup-service";
 import { SearchService } from "./modules/services/search-service";
 import { UI_MESSAGES } from "./common/constants";
-import { ConnectionType, ConnectionEntity } from "./types/type";
+import { ConnectionEntity } from "./types/type";
 
 class PopupManager {
   private popupService!: PopupService;
@@ -150,6 +150,7 @@ class PopupManager {
             );
           } catch (urlError) {
             // URL 파싱 실패 시 무시
+            return;
           }
         }
 

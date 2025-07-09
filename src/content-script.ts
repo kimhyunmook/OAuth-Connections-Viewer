@@ -1,7 +1,8 @@
 import { MSGTYPE } from "./common/constants";
-import { isLoginPage, sendMessageData } from "./modules/services/connection-parser-service";
 import { PLATFORM_SCRIPT_CONFIGS } from "./common/config/platform-config";
-import { ConnectionEntity } from "./types/type";
+import ConnectionParserController from "./modules/controllers/connection-parser-controller";
+
+const { isLoginPage, sendMessageData } = new ConnectionParserController()
 
 // 매칭 확인 함수
 async function checkMatch(): Promise<void> {

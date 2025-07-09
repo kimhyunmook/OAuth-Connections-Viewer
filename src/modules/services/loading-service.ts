@@ -22,20 +22,6 @@ export class LoadingService {
         `;
 
         this.targetElement = document.querySelector(targetSelector) || document.body;
-
-        // 타겟 요소에 position 설정
-        // if (this.targetElement !== document.body) {
-        //     const targetElement = this.targetElement as HTMLElement;
-        //     if (getComputedStyle(targetElement).position === 'static') {
-        //         targetElement.style.position = 'relative';
-        //     }
-
-        //     // OAlists인 경우 스크롤 제어 클래스 추가
-        //     if (targetElement.id === 'OAlists') {
-        //         targetElement.classList.add('oacv-loading-active');
-        //     }
-        // }
-
         this.targetElement.appendChild(this.loadingDiv);
     }
 
@@ -61,14 +47,3 @@ export class LoadingService {
     }
 }
 
-// 싱글톤 인스턴스 생성
-export const loadingService = new LoadingService();
-
-// 기존 함수들을 유지하여 호환성 보장
-export function showLoading(targetSelector: string = "body", loadingMsg: string = '로딩 중...') {
-    loadingService.showLoading(targetSelector, loadingMsg);
-}
-
-export function hideLoading() {
-    loadingService.hideLoading();
-} 
