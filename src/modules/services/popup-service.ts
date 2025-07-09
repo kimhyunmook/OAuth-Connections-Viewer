@@ -1,6 +1,6 @@
 import { ConnectionType, AllConnections, PlatformType, TabMessage, ConnectionResponse } from "../../types/type";
-import { SERVICE_CONFIG, PLATFORM_INFO } from "../../common/constants";
-import { loadingService } from "./loading-service";
+import { SERVICE_CONFIG, PLATFORM_INFO, MSGTYPE } from "../../common/constants";
+import { LoadingService } from "./loading-service";
 import { StorageController } from "../controllers/storage-controller";
 
 
@@ -11,6 +11,7 @@ export class PopupService {
     private lastListener: ((msg: TabMessage, sender: any) => void) | null = null;
     private readonly TIMEOUT_MS = 15000; // 15초 타임아웃
     private storageController: StorageController;
+    private loadingService: LoadingService
     constructor() {
         const elementUl = document.getElementById("OAlists");
         const elementDiv = document.getElementById('OAcontent')
@@ -31,6 +32,7 @@ export class PopupService {
         this.listUL.classList.add("list-scroll-reset");
         this.setupMessageListener();
         this.storageController = new StorageController()
+        this.loadingService = new LoadingService()
     }
 
     /**
@@ -67,13 +69,14 @@ export class PopupService {
         platformName?: string
     ): void {
         this.clearList();
-        loadingService.showLoading('#OAlist');
         this.resetListStyles();
 
         if (connections.length === 0) {
             this.renderEmptyMessage(emptyMessage);
             return;
         }
+
+        this.loadingService.showLoading('body');
         this.renderPlatformHeader(platformName, connections.length);
         this.renderConnectionItems(connections);
     }
@@ -83,13 +86,13 @@ export class PopupService {
      */
     private renderAllConnections(allConnections: AllConnections): void {
         this.clearList();
-        loadingService.hideLoading();
+        this.loadingService.hideLoading();
         this.resetListStyles();
 
         const totalConnections = this.getTotalConnectionCount(allConnections);
 
         if (totalConnections === 0) {
-            this.renderEmptyMessage("저장된 OAuth 연결이 없습니다.");
+            this.renderEmptyMessage("저장된 OAuth 연결이 없습니다. 먼저 플랫폼 별 OAuth 데이터를 가져와주세요.");
             return;
         }
 
@@ -118,7 +121,7 @@ export class PopupService {
      */
     private renderPlatformHeader(platformName?: string, count?: number): void {
         if (!platformName) return;
-        this.hideLoading()
+        // this.hideLoading()
         const headerElement = document.createElement("div");
         headerElement.className = "platform-header";
         headerElement.innerHTML = `<p>${platformName} (${count}개)</p>`;
@@ -145,13 +148,14 @@ export class PopupService {
     /**
      * 리스트 초기화
      */
-    private clearList(): void {
+    private clearList(): boolean {
         this.listUL.innerHTML = "";
         const header = this.OAcontent.querySelector('.platform-header');
         if (!header || header === null) {
-            return
+            return true
         }
         header.remove()
+        return true
     }
 
     /**
@@ -182,6 +186,8 @@ export class PopupService {
       `;
             this.listUL.appendChild(listItem);
         });
+        this.hideLoading()
+
     }
 
     /**
@@ -222,7 +228,7 @@ export class PopupService {
         this.lastPlatformKey = null;
 
         this.clearList();
-        loadingService.showLoading("#OAlists", "모든 OAuth 연결을 가져오는 중...");
+        this.loadingService.showLoading("#OAlists", "모든 OAuth 연결을 가져오는 중...");
 
         try {
             const allConnections = await this.storageController.getAllConnections();
@@ -245,7 +251,7 @@ export class PopupService {
         const platformName = PLATFORM_INFO[service]?.DISPLAY_NAME || service;
 
         this.clearList();
-        loadingService.showLoading("#OAlists", config.LOADING_MSG);
+        this.loadingService.showLoading("#OAlists", config.LOADING_MSG);
 
         this.checkCachedData(config, platformName);
     }
@@ -321,6 +327,7 @@ export class PopupService {
 
         this.lastListener = (msg: TabMessage, sender: any) => {
             this.handleTabMessage(msg, sender, config, platformName, openedTabId);
+            return true;
         };
 
         chrome.runtime.onMessage.addListener(this.lastListener);
@@ -357,7 +364,8 @@ export class PopupService {
     ): void {
         chrome.tabs.remove(tabId, () => {
             if (chrome.runtime.lastError) {
-                console.error('Failed to remove tab:', chrome.runtime.lastError);
+                // console.error('Failed to remove tab:', chrome.runtime.lastError.message);
+                return
             }
         });
 
@@ -396,7 +404,8 @@ export class PopupService {
     private handleLoginRequiredMessage(tabId: number): void {
         chrome.tabs.remove(tabId, () => {
             if (chrome.runtime.lastError) {
-                console.error('Failed to remove tab:', chrome.runtime.lastError);
+                // console.error('Failed to remove tab:', chrome.runtime.lastError.message);
+                return
             }
         });
         this.cleanupListener();
@@ -407,7 +416,7 @@ export class PopupService {
      */
     private isLoginRequiredForTab(msg: TabMessage, sender: any, openedTabId: number): boolean {
         return (
-            msg.type === "LOGIN_REQUIRED" &&
+            msg.type === MSGTYPE.LOGIN_REQUIRED &&
             openedTabId !== null &&
             (!sender.tab || sender.tab.id === openedTabId || msg.tabId === openedTabId)
         );
@@ -431,6 +440,7 @@ export class PopupService {
             if (msg.type === "LOGIN_REQUIRED") {
                 this.handleGlobalLoginRequiredMessage(msg);
             }
+            return true
         });
     }
 
@@ -438,7 +448,7 @@ export class PopupService {
      * 전역 로그인 필요 메시지 처리
      */
     private handleGlobalLoginRequiredMessage(msg: TabMessage): void {
-        loadingService.hideLoading();
+        this.loadingService.hideLoading();
         const emptyMessage = this.getLoginRequiredMessage(msg);
 
         this.renderEmptyMessage(emptyMessage);
@@ -467,14 +477,14 @@ export class PopupService {
      * 로딩 상태 확인
      */
     public isLoading(): boolean {
-        return loadingService.isLoading();
+        return this.loadingService.isLoading();
     }
 
     /**
      * 로딩 숨기기
      */
     public hideLoading(): void {
-        loadingService.hideLoading();
+        this.loadingService.hideLoading();
     }
 
     /**
@@ -482,6 +492,6 @@ export class PopupService {
      */
     public destroy(): void {
         this.cleanupListener();
-        loadingService.hideLoading();
+        this.loadingService.hideLoading();
     }
 }

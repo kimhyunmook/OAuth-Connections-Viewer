@@ -10,6 +10,7 @@ export class SearchService {
     private currentView: SearchViewType = "search";
     private searchTimeout: NodeJS.Timeout | null = null;
     private storageController: StorageController
+    private readonly OAcontent: HTMLDivElement;
 
     constructor(
         searchInput: HTMLInputElement | null,
@@ -18,6 +19,7 @@ export class SearchService {
     ) {
         this.elements = { searchInput, searchBtn, listUL };
         this.storageController = new StorageController();
+        this.OAcontent = document.getElementById('OAcontent') as HTMLDivElement
     }
 
     /**
@@ -135,6 +137,11 @@ export class SearchService {
      * 리스트 표시 초기화
      */
     private resetListDisplay(): void {
+        const header = this.OAcontent.querySelector('.platform-header');
+        if (!header || header === null) {
+            return
+        }
+        header.remove()
         if (this.elements.listUL) {
             this.elements.listUL.innerHTML = `<li class='list'>${UI_MESSAGES.NODATA}</li>`;
         }

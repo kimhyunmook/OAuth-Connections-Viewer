@@ -20,6 +20,12 @@ export type ConnectionType = {
   name?: string;
 };
 
+// 플랫폼 정보를 포함한 연결 엔티티
+export interface ConnectionEntity extends ConnectionType {
+  platform: PlatformType;
+  storageKey: string;
+}
+
 export interface ParseConnectionType {
   parentDom: string;
   listDom: string;

@@ -1,6 +1,6 @@
 import { OauthType } from "../../types/type";
 
-export const MSGTYPE: Record<string, OauthType> = {
+export const MSGTYPE: Record<OauthType, string> = {
     // -------------------------------
     GOOGLE_SAVE: "GOOGLE_SAVE",
     GOOGLE_GET: "GOOGLE_GET",

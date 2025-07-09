@@ -1,5 +1,5 @@
 import { StorageService } from "../services/storage-service";
-import { AllConnections } from "../../types/type";
+import { AllConnections, ConnectionEntity, PlatformType } from "../../types/type";
 
 export class StorageController {
     private storageService: StorageService;
@@ -13,6 +13,20 @@ export class StorageController {
      */
     public async getAllConnections(): Promise<AllConnections> {
         return this.storageService.getAllConnections();
+    }
+
+    /**
+     * 모든 연결 데이터를 엔티티 형태로 가져오기 (플랫폼 정보 포함)
+     */
+    public async getAllConnectionEntities(): Promise<ConnectionEntity[]> {
+        return this.storageService.getAllConnectionEntities();
+    }
+
+    /**
+     * 특정 플랫폼의 연결 데이터를 엔티티 형태로 가져오기
+     */
+    public async getPlatformConnectionEntities(platform: PlatformType): Promise<ConnectionEntity[]> {
+        return this.storageService.getPlatformConnectionEntities(platform);
     }
 
     /**

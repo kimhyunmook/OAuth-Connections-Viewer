@@ -1,15 +1,15 @@
 # OAuth Connections Viewer
 
+## Language
+
+- [English](README.md) (Current)
+- [한국어](README.ko.md)
+
+---
+
 OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth 연결 내역(이름, 이미지)을 한 눈에 확일할 수 있는 크롬 확장 프로그램입니다. 내가 어떤 OAuth로 일일이 찾아 볼 필요 없이 한 눈에 볼수 있도록 제작하였습니다. 개인정보나 아이디를 수집 하고 있지 않고 개인 저장소에 저장해서 사용이 가능합니다.
 
 #### 아직 google extendtion 에 배포 되진 않았습니다. 직접 설치 후 개발자 환경에서 사용해주세요
-
-## 업데이트 예정
-
-- 검색 기능 ✅ (Completed)
-- OAuth 목록 새로고침.
-  - 현재는 저장소를 삭제 후 다시 재로드를 해줘야합니다.
-- 현재 페이지에 어떤 OAuth로 가입 되어 있는지 확인.
 
 <div style="display:flex;align-items:center;justify-content:center"> 
     <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases">
@@ -42,9 +42,8 @@ OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth �
 1. 확장 프로그램 아이콘을 클릭하면 팝업이 열립니다.
 2. 원하는 플랫폼(Google, Naver, Kakao) 버튼을 클릭하면 연결된 서비스 목록을 확인할 수 있습니다.
 3. 검색창을 사용하여 모든 플랫폼에서 특정 서비스를 찾을 수 있습니다.
-4. "스토리지 데이터 삭제" 버튼을 클릭하면 저장된 연결 정보가 모두 삭제됩니다.
-5. 다크모드/라이트모드는 우측 상단의 🌙/☀️ 버튼으로 전환할 수 있습니다.
-6. 연결 정보가 없거나, 로그인이 필요한 경우 안내 메시지 또는 알림이 표시됩니다.
+4. "Storage Clear" 버튼을 클릭하면 저장된 연결 정보가 모두 삭제됩니다.
+5. 연결 정보가 없거나, 로그인이 필요한 경우 안내 메시지 또는 알림이 표시됩니다.
 
 ### 검색 기능
 
@@ -66,23 +65,6 @@ OAuth Connections Viewer는 Google, Naver, Kakao 다양한 플랫폼의 OAuth �
 - 이 프로젝트는 TypeScript, Webpack, Chrome Extension Manifest V3를 기반으로 개발되었습니다.
 - 코드 수정 후 `npm install` → `npm run build`로 번들링하세요.
 - PR 및 이슈 환영합니다!
-
-### 주요 폴더 구조
-
-```
-myOauth/
-├── src/
-│   ├── assets/         # 아이콘 및 이미지
-│   ├── config/         # 플랫폼별 설정
-│   ├── helpers/        # 주요 로직 및 유틸
-│   ├── styles/         # CSS 파일
-│   ├── popup.html      # 팝업 UI
-│   └── popup.ts        # 팝업 스크립트
-├── manifest.json       # 크롬 확장 프로그램 설정
-├── README.md           # 문서 (영어)
-├── README.ko.md        # 문서 (한국어)
-└── ...
-```
 
 ---
 
@@ -115,8 +97,3 @@ myOauth/
 - 이슈 또는 PR로 문의해 주세요.
 
 ---
-
-## 언어
-
-- [English](README.md)
-- [한국어](README.ko.md) (현재)

@@ -1,4 +1,4 @@
-import { AllConnections, PlatformType } from "../../types/type";
+import { AllConnections, PlatformType, ConnectionEntity, ConnectionType } from "../../types/type";
 import { STORAGE_KEYS } from "../../common/constants";
 
 export class StorageService {
@@ -58,7 +58,7 @@ export class StorageService {
     /**
      * 특정 플랫폼의 연결 데이터 가져오기
      */
-    public async getPlatformConnections(platform: PlatformType): Promise<any[]> {
+    public async getPlatformConnections(platform: PlatformType): Promise<ConnectionType[]> {
         return new Promise((resolve, reject) => {
             const timeout = setTimeout(() => {
                 reject(new Error(`Platform storage access timeout: ${platform}`));
@@ -103,6 +103,48 @@ export class StorageService {
                 resolve();
             });
         });
+    }
+
+    /**
+     * 모든 연결 데이터를 엔티티 형태로 가져오기 (플랫폼 정보 포함)
+     */
+    public async getAllConnectionEntities(): Promise<ConnectionEntity[]> {
+        const allConnections = await this.getAllConnections();
+        const entities: ConnectionEntity[] = [];
+
+        // 각 플랫폼별로 엔티티 생성
+        Object.entries(allConnections).forEach(([platform, connections]) => {
+            const platformType = platform as PlatformType;
+            const storageKey = STORAGE_KEYS[platform.toUpperCase() as keyof typeof STORAGE_KEYS];
+
+            (connections as ConnectionType[]).forEach((connection: ConnectionType) => {
+                if (connection.name) {
+                    entities.push({
+                        ...connection,
+                        platform: platformType,
+                        storageKey: storageKey
+                    });
+                }
+            });
+        });
+
+        return entities;
+    }
+
+    /**
+     * 특정 플랫폼의 연결 데이터를 엔티티 형태로 가져오기
+     */
+    public async getPlatformConnectionEntities(platform: PlatformType): Promise<ConnectionEntity[]> {
+        const connections = await this.getPlatformConnections(platform);
+        const storageKey = STORAGE_KEYS[platform.toUpperCase() as keyof typeof STORAGE_KEYS];
+
+        return connections
+            .filter((connection: ConnectionType) => connection.name)
+            .map((connection: ConnectionType) => ({
+                ...connection,
+                platform: platform,
+                storageKey: storageKey
+            }));
     }
 }
 

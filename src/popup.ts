@@ -4,7 +4,7 @@ import { StorageController } from "./modules/controllers/storage-controller";
 import { PopupService } from "./modules/services/popup-service";
 import { SearchService } from "./modules/services/search-service";
 import { UI_MESSAGES } from "./common/constants";
-import { ConnectionType } from "./types/type";
+import { ConnectionType, ConnectionEntity } from "./types/type";
 
 class PopupManager {
   private popupService!: PopupService;
@@ -17,7 +17,7 @@ class PopupManager {
   private searchBtn: HTMLButtonElement | null = null;
   private listUL: HTMLUListElement | null = null;
   private currentPageUrl: HTMLParagraphElement | null = null;
-  private currentPageTitle: HTMLParagraphElement | null = null;
+  private currentMatchedConnectionInfo: HTMLParagraphElement | null = null;
   private storageController: StorageController = new StorageController();
 
   constructor() {
@@ -48,7 +48,7 @@ class PopupManager {
     this.searchBtn = document.getElementById("search-btn") as HTMLButtonElement;
     this.listUL = document.getElementById("OAlists") as HTMLUListElement;
     this.currentPageUrl = document.getElementById("current-page-url") as HTMLParagraphElement;
-    this.currentPageTitle = document.getElementById("current-page-title") as HTMLParagraphElement;
+    this.currentMatchedConnectionInfo = document.getElementById("current-page-title") as HTMLParagraphElement;
     // 필수 DOM 요소 검증
     if (!this.allBtn) {
       throw new Error('Required DOM element "all-btn" not found');
@@ -117,31 +117,68 @@ class PopupManager {
         throw new Error('No active tab found');
       }
 
-      if (tab?.url && this.currentPageUrl) {
-        try {
-          const url = new URL(tab.url);
-          const domain = url.hostname;
-          this.currentPageUrl.textContent = domain;
-        } catch (urlError) {
-          this.currentPageUrl.textContent = 'Invalid URL';
-        }
-      }
+      // if (tab?.url && this.currentPageUrl) {
+      //   try {
+      //     const url = new URL(tab.url);
+      //     const domain = url.hostname;
+      //     this.currentPageUrl.textContent = domain;
+      //   } catch (urlError) {
+      //     this.currentPageUrl.textContent = 'Invalid URL';
+      //   }
+      // }
 
-      const allConnections = await this.storageController.getAllConnections();
-      const connNames: string[] = Object.values(allConnections).reduce((a: ConnectionType[], c: ConnectionType[]) => {
-        a.push(...c)
-        return a
-      }, []).map((v: ConnectionType) => v.name)
+      // 모든 연결 데이터를 엔티티 형태로 가져오기 (플랫폼 정보 포함)
+      const connectionEntities: ConnectionEntity[] = await this.storageController.getAllConnectionEntities();
+      const EXCLUDE_WORDS = ['google', 'naver', 'kakao', '네이버', '카카오', '구글'];
+
       // 여기
-      if (tab && this.currentPageTitle) {
+      if (tab && this.currentMatchedConnectionInfo) {
+        let matchedEntity: ConnectionEntity | undefined;
 
-        if (tab.title) {
-          const title = tab.title
-          const titleValidation = title.split(' ').filter(chunk => {
-            return connNames.filter(value2 => value2 === chunk)
-          })
-          if (titleValidation.length > 0)
-            this.currentPageTitle.textContent = title
+        // URL 기반 매칭 (도메인 분할)
+        if (tab.url) {
+          try {
+            const url = new URL(tab.url);
+            const domainParts = url.hostname.split('.')
+              .filter(part => part.length > 2 && !['www', 'com', 'co', 'kr', 'net', 'org'].includes(part))
+              .filter(part => !EXCLUDE_WORDS.includes(part.toLowerCase()));
+
+            matchedEntity = connectionEntities.find((entity: ConnectionEntity) =>
+              domainParts.some((part: string) =>
+                entity.name && (entity.name.toLowerCase().includes(part.toLowerCase()) || part.toLowerCase().includes(entity.name.toLowerCase()))
+              )
+            );
+          } catch (urlError) {
+            // URL 파싱 실패 시 무시
+          }
+        }
+
+        // URL 매칭이 실패한 경우 제목 기반 매칭 시도
+        if (!matchedEntity && tab.title) {
+          const titleWords = tab.title.toLowerCase().split(' ')
+            .filter(word => word.length > 2 && !EXCLUDE_WORDS.includes(word));
+
+          matchedEntity = connectionEntities.find((entity: ConnectionEntity) =>
+            titleWords.some((word: string) =>
+              entity.name && (entity.name.toLowerCase().includes(word) || word.includes(entity.name.toLowerCase()))
+            )
+          );
+        }
+
+        if (matchedEntity) {
+          this.currentMatchedConnectionInfo.innerHTML = `
+            <div class="matched-connection">
+              <span class="platform-badge ${matchedEntity.platform}">${matchedEntity.platform.toUpperCase()}</span>
+              <span class="connection-name">${matchedEntity.name}</span>
+            </div>
+          `;
+
+          // 매칭 성공 시 background script에 알림
+          this.notifyBackgroundOfMatch(matchedEntity);
+        } else {
+          this.currentMatchedConnectionInfo.remove();
+          // 매칭 실패 시 background script에 알림
+          this.notifyBackgroundOfNoMatch();
         }
       }
     } catch (error) {
@@ -149,8 +186,8 @@ class PopupManager {
       if (this.currentPageUrl) {
         this.currentPageUrl.textContent = "페이지 정보를 가져올 수 없습니다.";
       }
-      if (this.currentPageTitle) {
-        this.currentPageTitle.textContent = "제목을 가져올 수 없습니다.";
+      if (this.currentMatchedConnectionInfo) {
+        this.currentMatchedConnectionInfo.textContent = "제목을 가져올 수 없습니다.";
       }
     }
   }
@@ -244,6 +281,37 @@ class PopupManager {
    */
   public resetSearch(): void {
     this.searchService.resetSearch();
+  }
+
+  /**
+   * 매칭 성공 시 background script에 알림
+   */
+  private notifyBackgroundOfMatch(matchedEntity: ConnectionEntity): void {
+    try {
+      chrome.runtime.sendMessage({
+        type: 'MATCH_FOUND',
+        payload: {
+          platform: matchedEntity.platform,
+          connectionName: matchedEntity.name,
+          storageKey: matchedEntity.storageKey
+        }
+      });
+    } catch (error) {
+      console.error('Failed to notify background of match:', error);
+    }
+  }
+
+  /**
+   * 매칭 실패 시 background script에 알림
+   */
+  private notifyBackgroundOfNoMatch(): void {
+    try {
+      chrome.runtime.sendMessage({
+        type: 'NO_MATCH_FOUND'
+      });
+    } catch (error) {
+      console.error('Failed to notify background of no match:', error);
+    }
   }
 
   /**

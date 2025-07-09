@@ -1,5 +1,12 @@
 # OAuth Connections Viewer
 
+## Language
+
+- [English](README.md) (Current)
+- [한국어](README.ko.md)
+
+---
+
 ## About This Extension
 
 OAuth Connections Viewer is a Chrome extension that allows you to view OAuth connection history (names, images) from various platforms such as Google, Naver, and Kakao at a glance. You no longer need to individually search through each OAuth platform - everything is visible at once. The extension does not collect personal information or IDs and stores data in your personal storage for safe use.
@@ -7,13 +14,6 @@ OAuth Connections Viewer is a Chrome extension that allows you to view OAuth con
 #### **Note: Not yet deployed to Google Web Store**
 
 Please install manually and use in developer environment.
-
-## Planned Updates
-
-- Search functionality ✅ (Completed)
-- OAuth list refresh
-  - Currently requires deleting storage and reloading
-- Check which OAuth is registered on the current page
 
 <div style="display:flex;align-items:center;justify-content:center"> 
     <a href="https://github.com/kimhyunmook/OAuth-Connections-Viewer/releases">
@@ -46,9 +46,8 @@ Please install manually and use in developer environment.
 1. Click the extension icon to open the popup
 2. Click the desired platform button (Google, Naver, Kakao) to view the list of connected services
 3. Use the search box to find specific services across all platforms
-4. Click "Delete Storage Data" button to delete all saved connection information
-5. Dark mode/Light mode can be switched using the 🌙/☀️ button in the top right corner
-6. If there is no connection information or login is required, a guidance message or notification will be displayed
+4. Click "Storage Clear" button to delete all saved connection information
+5. If there is no connection information or login is required, a guidance message or notification will be displayed
 
 ### Search Features
 
@@ -70,23 +69,6 @@ Please install manually and use in developer environment.
 - This project is developed based on TypeScript, Webpack, and Chrome Extension Manifest V3
 - After modifying the code, bundle it with `npm install` → `npm run build`
 - PRs and issues are welcome!
-
-### Main Folder Structure
-
-```
-myOauth/
-├── src/
-│   ├── assets/         # Icons and images
-│   ├── config/         # Platform-specific configurations
-│   ├── helpers/        # Main logic and utilities
-│   ├── styles/         # CSS files
-│   ├── popup.html      # Popup UI
-│   └── popup.ts        # Popup script
-├── manifest.json       # Chrome extension configuration
-├── README.md           # Documentation (English)
-├── README.ko.md        # Documentation (Korean)
-└── ...
-```
 
 ---
 
@@ -119,8 +101,3 @@ This project is licensed under the MIT License.
 - Please contact us through issues or PRs.
 
 ---
-
-## Language
-
-- [English](README.md) (Current)
-- [한국어](README.ko.md)

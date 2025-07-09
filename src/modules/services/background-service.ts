@@ -15,7 +15,7 @@ export class BackgroundService {
                 // Storage 저장에 에러 처리 추가
                 chrome.storage.local.set({ [service.key]: service.latest }, () => {
                     if (chrome.runtime.lastError) {
-                        console.error(`Storage save error for ${service.key}:`, chrome.runtime.lastError);
+                        console.error(`Storage save error for ${service.key}:`, chrome.runtime.lastError.message);
                     }
                 });
             }
@@ -27,7 +27,8 @@ export class BackgroundService {
                     tabId: sender.tab.id,
                 }, () => {
                     if (chrome.runtime.lastError) {
-                        console.error('Failed to send ready message:', chrome.runtime.lastError);
+                        // console.error('Failed to send ready message:', chrome.runtime.lastError.message);
+                        return
                     }
                 });
 
@@ -71,7 +72,7 @@ export class BackgroundService {
             try {
                 chrome.tabs && chrome.tabs.remove && chrome.tabs.remove(tabId, () => {
                     if (chrome.runtime.lastError) {
-                        console.error('Failed to close tab:', chrome.runtime.lastError);
+                        console.error('Failed to close tab:', chrome.runtime.lastError.message);
                     }
                 });
             } catch (error) {
