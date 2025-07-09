@@ -1,10 +1,25 @@
+import { SERVICES_BACKGROUND } from "../config/background-config";
+
+interface CreateElementProps {
+    element: string
+    className?: string
+    id?: string
+}
+
+export function createElement({
+    element,
+    className,
+    id
+}: CreateElementProps) {
+    const el = document.createElement(element)
+    el.className = className ? className : ''
+    el.id = id ? id : ''
+    return el
+}
+
 export function getElementById<T extends HTMLElement>(id: string): T | null {
     return typeof document !== 'undefined' ? document.getElementById(id) as T : null;
 }
-
-
-
-import { SERVICES_BACKGROUND } from "../config/background-config";
 
 export function getPlatformButtons() {
     const container = getElementById<HTMLElement>('platform-buttons');
@@ -34,15 +49,5 @@ export function getPlatformButtons() {
     });
 
     return buttons;
-}
-
-/**
- * 텍스트 하이라이트 처리
- */
-export function highlightText(text: string, searchTerm: string): string {
-    if (!searchTerm.trim()) return text;
-
-    const regex = new RegExp(`(${searchTerm})`, 'gi');
-    return text.replace(regex, '<span class="search-highlight">$1</span>');
 }
 

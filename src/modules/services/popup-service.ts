@@ -92,7 +92,7 @@ export class PopupService {
         const totalConnections = this.getTotalConnectionCount(allConnections);
 
         if (totalConnections === 0) {
-            this.renderEmptyMessage("저장된 OAuth 연결이 없습니다. 먼저 플랫폼 별 OAuth 데이터를 가져와주세요.");
+            this.renderEmptyMessage("저장된 OAuth 연결이 없습니다. <br /> 먼저 플랫폼 별 OAuth 데이터를 가져와주세요.");
             return;
         }
 

@@ -18,26 +18,25 @@ export function renderSearchResults(
     const groupedResults = groupResultsByPlatform(results);
 
     let html = '';
-
     Object.entries(groupedResults).forEach(([platform, platformResults]) => {
         const platformInfo = PLATFORM_INFO[platform.toUpperCase() as keyof typeof PLATFORM_INFO];
 
         if (platformInfo && platformResults.length > 0) {
             html += `
-        <li class="list platform-header" data-platform="${platform}">
-          <div style="color: ${platformInfo.COLOR}; font-weight: bold;">
-            ${platformInfo.DISPLAY_NAME} (${platformResults.length})
-          </div>
-        </li>
-      `;
+                <li class="list platform-header" data-platform="${platform}">
+                    <p>
+                        ${platformInfo.DISPLAY_NAME} (${platformResults.length})
+                    </p>
+                </li>
+            `;
 
             platformResults.forEach((result) => {
                 html += `
-          <li class="list">
-            <img src="${result.image || ''}" alt="${result.name}">
-            <span class="service-name">${result.name || 'Unknown'}</span>
-          </li>
-        `;
+                    <li class="list">
+                        <img src="${result.image || ''}" alt="${result.name}">
+                        <span class="service-name">${result.name || 'Unknown'}</span>
+                    </li>
+                `;
             });
         }
     });

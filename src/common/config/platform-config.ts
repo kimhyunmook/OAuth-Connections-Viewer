@@ -1,5 +1,7 @@
 import { PlatformType, PlatformConfig } from "../../types/type";
-import { parseGoogleConnections, parseNaverConnections, parseKakaoConnections } from "../../modules/services/platform-parsers-service";
+import PlatformParserController from '../../modules/controllers/platform-controller'
+
+const platformParserController = new PlatformParserController();
 
 export const PLATFORM_CONFIGS: Record<PlatformType, PlatformConfig> = {
     google: {
@@ -39,18 +41,18 @@ export const PLATFORM_SCRIPT_CONFIGS = [
         url: "myaccount.google.com",
         type: "GOOGLE_SAVE",
         service: "GOOGLE",
-        parser: parseGoogleConnections,
+        parser: platformParserController.parseGoogleConnections,
     },
     {
         url: "nid.naver.com",
         type: "NAVER_SAVE",
         service: "NAVER",
-        parser: parseNaverConnections,
+        parser: platformParserController.parseNaverConnections,
     },
     {
         url: "apps.kakao.com",
         type: "KAKAO_SAVE",
         service: "KAKAO",
-        parser: parseKakaoConnections,
+        parser: platformParserController.parseKakaoConnections,
     },
 ];

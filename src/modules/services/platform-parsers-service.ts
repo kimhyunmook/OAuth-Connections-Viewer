@@ -1,10 +1,15 @@
-import { parseConnection, isLoginPage } from "./connection-parser-service";
+// import { parseConnection, isLoginPage } from "./connection-parser-service";
 import { PlatformType, PlatformConfig } from "../../types/type";
 import { PLATFORM_CONFIGS } from "../../common/config/platform-config";
+import ConnectionParserController from "../controllers/connection-parser-controller";
 
 export class PlatformParserService {
   private readonly MAX_RETRY_COUNT = 1;
+  private connectionParserController: ConnectionParserController
 
+  constructor() {
+    this.connectionParserController = new ConnectionParserController()
+  }
   /**
    * 플랫폼별 연결 정보 파싱 (공통 로직)
    */
@@ -17,13 +22,13 @@ export class PlatformParserService {
     }
 
     // 로그인 페이지 검증
-    if (isLoginPage()) {
+    if (this.connectionParserController.isLoginPage()) {
       this.sendLoginRequiredMessage(config.service);
       return [];
     }
 
     // 파싱 실행 (재시도 로직 포함)
-    return parseConnection(
+    return this.connectionParserController.parseConnection(
       config.selectors,
       undefined,
       0,
@@ -97,21 +102,4 @@ export class PlatformParserService {
     return PLATFORM_CONFIGS[platform] || null;
   }
 }
-
-// 싱글톤 인스턴스 생성
-export const platformParserService = new PlatformParserService();
-
-// 기존 함수들을 유지하여 호환성 보장
-export function parseGoogleConnections() {
-  return platformParserService.parseGoogleConnections();
-}
-
-export function parseNaverConnections() {
-  return platformParserService.parseNaverConnections();
-}
-
-export function parseKakaoConnections() {
-  return platformParserService.parseKakaoConnections();
-}
-
 

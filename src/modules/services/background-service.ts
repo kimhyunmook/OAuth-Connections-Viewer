@@ -82,5 +82,3 @@ export class BackgroundService {
     }
 }
 
-// 싱글톤 인스턴스 생성
-export const backgroundService = new BackgroundService(); 
